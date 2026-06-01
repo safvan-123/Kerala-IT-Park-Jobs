@@ -1,0 +1,1396 @@
+/* ================================================= */
+/* 🎨 ENHANCED SIDEBAR DESIGN - FULLY RESPONSIVE */
+/* ================================================= */
+
+/* ================================================= */
+/* 🎯 SIDEBAR BASE */
+/* ================================================= */
+.sidebar {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: fixed;
+  height: 100vh;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  top: 0;
+  left: 0;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Desktop: Open State */
+.sidebar.open {
+  width: 280px;
+}
+
+/* Desktop: Collapsed State */
+.sidebar.collapsed {
+  width: 80px;
+}
+
+/* ================================================= */
+/* 📱 MOBILE RESPONSIVE SIDEBAR */
+/* ================================================= */
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px !important;
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.4);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+}
+
+/* Tablet: 768px - 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar.open {
+    width: 260px;
+  }
+  
+  .sidebar.collapsed {
+    width: 75px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .sidebar.open {
+    width: 300px;
+  }
+  
+  .sidebar.collapsed {
+    width: 85px;
+  }
+}
+
+.mobile-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  display: none;
+  animation: fadeIn 0.3s ease;
+  cursor: pointer;
+}
+
+.mobile-sidebar-overlay.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hide overlay on desktop */
+@media (min-width: 768px) {
+  .mobile-sidebar-overlay {
+    display: none !important;
+  }
+}
+
+/* ================================================= */
+/* 🎨 SIDEBAR LOGO */
+/* ================================================= */
+.sidebar-logo {
+  padding: 30px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  flex-shrink: 0;
+}
+
+/* Animated gradient background */
+.sidebar-logo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.1) 0%,
+    rgba(118, 75, 162, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sidebar-logo:hover::before {
+  opacity: 1;
+}
+
+.sidebar-logo-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: white;
+  box-shadow: 
+    0 8px 20px rgba(102, 126, 234, 0.4),
+    0 0 0 4px rgba(102, 126, 234, 0.1);
+  padding: 0px 2px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine effect */
+.sidebar-logo-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0%, 100% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  50% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.sidebar-logo-box:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 12px 30px rgba(102, 126, 234, 0.5),
+    0 0 0 6px rgba(102, 126, 234, 0.15);
+}
+
+.sidebar-title {
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-subtitle {
+  color: #94a3b8;
+  font-size: 12px;
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile Logo Adjustments */
+@media (max-width: 767px) {
+  .sidebar-logo {
+    padding: 25px 15px;
+  }
+  
+  .sidebar-logo-box {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+  
+  .sidebar-title {
+    font-size: 18px;
+  }
+  
+  .sidebar-subtitle {
+    font-size: 11px;
+  }
+}
+
+/* Tablet Logo Adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar-logo-box {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .sidebar-title {
+    font-size: 18px;
+  }
+}
+
+/* ================================================= */
+/* 📋 SIDEBAR MENU */
+/* ================================================= */
+.sidebar-menu {
+  flex: 1;
+  padding: 25px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Mobile Menu Padding */
+@media (max-width: 767px) {
+  .sidebar-menu {
+    padding: 20px 10px;
+  }
+}
+
+/* Tablet Menu Padding */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar-menu {
+    padding: 22px 10px;
+  }
+}
+
+/* ================================================= */
+/* 🎯 MENU ITEMS */
+/* ================================================= */
+.sidebar-menu-item {
+  padding: 16px 18px;
+  margin: 6px 0;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  color: #cbd5e1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  border: 2px solid transparent;
+}
+
+/* Hover glow effect */
+.sidebar-menu-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.15) 0%,
+    rgba(118, 75, 162, 0.15) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 14px;
+}
+
+.sidebar-menu-item:hover::before {
+  opacity: 1;
+}
+
+/* Icon styling */
+.sidebar-menu-item > svg {
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Active state */
+.sidebar-menu-item.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 
+    0 8px 20px rgba(102, 126, 234, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(4px);
+}
+
+.sidebar-menu-item.active > svg {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Active item indicator line */
+.sidebar-menu-item.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background: white;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Hover state for non-active items */
+.sidebar-menu-item:not(.active):hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  transform: translateX(4px);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu-item:not(.active):hover > svg {
+  transform: scale(1.05);
+}
+
+/* Collapsed sidebar - center icons */
+.sidebar.collapsed .sidebar-menu-item {
+  justify-content: center;
+  padding: 16px;
+}
+
+/* Collapsed sidebar - hide indicator */
+.sidebar.collapsed .sidebar-menu-item.active::after {
+  display: none;
+}
+
+/* Mobile Menu Item Adjustments */
+@media (max-width: 767px) {
+  .sidebar-menu-item {
+    padding: 14px 16px;
+    margin: 5px 0;
+    border-radius: 12px;
+  }
+  
+  .sidebar-menu-item.active {
+    transform: translateX(2px);
+  }
+}
+
+/* Tablet Menu Item Adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar-menu-item {
+    padding: 15px 16px;
+  }
+}
+
+/* ================================================= */
+/* 🏷️ MENU LABEL */
+/* ================================================= */
+.sidebar-menu-label {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+/* Mobile Label */
+@media (max-width: 767px) {
+  .sidebar-menu-label {
+    font-size: 14px;
+  }
+}
+
+/* ================================================= */
+/* 📂 SUBMENU (Jobs) */
+/* ================================================= */
+.sidebar-submenu {
+  margin-left: 20px;
+  margin-top: 8px;
+  padding-left: 20px;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.sidebar-submenu::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-submenu:hover::before {
+  opacity: 1;
+}
+
+/* Submenu items */
+.sidebar-submenu .sidebar-menu-item {
+  padding: 12px 16px;
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* Collapsed sidebar - hide submenu */
+.sidebar.collapsed .sidebar-submenu {
+  display: none;
+}
+
+/* Mobile Submenu */
+@media (max-width: 767px) {
+  .sidebar-submenu {
+    margin-left: 15px;
+    padding-left: 15px;
+  }
+  
+  .sidebar-submenu .sidebar-menu-item {
+    padding: 10px 14px;
+  }
+}
+
+/* ================================================= */
+/* 🔻 CHEVRON ICON */
+/* ================================================= */
+.chevron-icon {
+  margin-left: auto;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================================= */
+/* 🚪 LOGOUT SECTION */
+/* ================================================= */
+.sidebar-logout-wrap {
+  padding: 20px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.sidebar-logout {
+  padding: 16px 18px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  color: #ef4444;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Logout hover effect */
+.sidebar-logout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.1) 0%,
+    rgba(220, 38, 38, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 14px;
+}
+
+.sidebar-logout:hover::before {
+  opacity: 1;
+}
+
+.sidebar-logout:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  transform: translateX(4px);
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.sidebar-logout > svg {
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.sidebar-logout:hover > svg {
+  transform: translateX(-3px) scale(1.1);
+}
+
+/* Collapsed sidebar - center logout icon */
+.sidebar.collapsed .sidebar-logout {
+  justify-content: center;
+  padding: 16px;
+}
+
+.sidebar-logout-text {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Mobile Logout */
+@media (max-width: 767px) {
+  .sidebar-logout-wrap {
+    padding: 18px 10px;
+  }
+  
+  .sidebar-logout {
+    padding: 14px 16px;
+  }
+  
+  .sidebar-logout-text {
+    font-size: 14px;
+  }
+}
+
+/* ================================================= */
+/* 🔘 SIDEBAR TOGGLE BUTTONS */
+/* ================================================= */
+
+/* Desktop Toggle Button */
+.sidebar-toggle.desktop-toggle {
+  position: absolute;
+  right: -18px;
+  top: 90px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 4px solid #f0f2f5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 
+    0 4px 12px rgba(102, 126, 234, 0.4),
+    0 0 0 2px rgba(102, 126, 234, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+  margin-right: 20px;
+}
+
+.sidebar-toggle.desktop-toggle:hover {
+  transform: scale(1.15) rotate(180deg);
+  box-shadow: 
+    0 6px 16px rgba(102, 126, 234, 0.5),
+    0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.sidebar-toggle.desktop-toggle:active {
+  transform: scale(1.05);
+}
+
+/* Mobile Toggle Button (Hamburger) */
+.sidebar-toggle.mobile-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 
+    0 8px 24px rgba(102, 126, 234, 0.5),
+    0 0 0 4px rgba(102, 126, 234, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+}
+
+.sidebar-toggle.mobile-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 12px 32px rgba(102, 126, 234, 0.6),
+    0 0 0 6px rgba(102, 126, 234, 0.15);
+}
+
+.sidebar-toggle.mobile-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Hide mobile toggle on desktop */
+@media (min-width: 768px) {
+  .sidebar-toggle.mobile-toggle {
+    display: none !important;
+  }
+}
+
+/* Hide desktop toggle on mobile */
+@media (max-width: 767px) {
+  .sidebar-toggle.desktop-toggle {
+    display: none !important;
+  }
+}
+
+/* Tablet Toggle */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar-toggle.desktop-toggle {
+    width: 32px;
+    height: 32px;
+    right: -16px;
+    font-size: 12px;
+  }
+}
+
+/* ================================================= */
+/* 🎯 TOOLTIP FOR COLLAPSED SIDEBAR */
+/* ================================================= */
+.sidebar.collapsed .sidebar-menu-item,
+.sidebar.collapsed .sidebar-logout {
+  position: relative;
+}
+
+.sidebar.collapsed .sidebar-menu-item:hover .sidebar-menu-label,
+.sidebar.collapsed .sidebar-logout:hover .sidebar-logout-text {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-left: 15px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  z-index: 1002;
+  font-size: 14px;
+  animation: slideInRight 0.2s ease;
+  display: block !important;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* Tooltip arrow */
+.sidebar.collapsed .sidebar-menu-item:hover .sidebar-menu-label::before,
+.sidebar.collapsed .sidebar-logout:hover .sidebar-logout-text::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 6px 6px 0;
+  border-color: transparent #667eea transparent transparent;
+}
+
+/* Hide tooltips on mobile/tablet */
+@media (max-width: 1023px) {
+  .sidebar.collapsed .sidebar-menu-item:hover .sidebar-menu-label,
+  .sidebar.collapsed .sidebar-logout:hover .sidebar-logout-text {
+    display: none !important;
+  }
+}
+
+.sidebar-badge {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-left: auto;
+  line-height: 1;
+  box-shadow: 
+    0 2px 8px rgba(239, 68, 68, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Mobile Badge */
+@media (max-width: 767px) {
+  .sidebar-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}
+
+/* ================================================= */
+/* ✨ RIPPLE EFFECT ON CLICK */
+/* ================================================= */
+.sidebar-menu-item:active::after,
+.sidebar-logout:active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  to {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+  }
+}
+
+/* ================================================= */
+/* 📱 MAIN CONTENT AREA RESPONSIVE */
+/* ================================================= */
+.main {
+  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Mobile: No margin (full width) */
+@media (max-width: 767px) {
+  .main {
+    margin-left: 0 !important;
+    padding: 15px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main {
+    padding: 18px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .main {
+    padding: 24px;
+  }
+}
+
+/* ================================================= */
+/* 🔧 PERFORMANCE OPTIMIZATIONS */
+/* ================================================= */
+
+/* GPU Acceleration */
+.sidebar,
+.sidebar-menu-item,
+.sidebar-logout,
+.sidebar-toggle {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .sidebar-menu-item,
+  .sidebar-logout,
+  .sidebar-toggle,
+  .sidebar-logo-box,
+  .mobile-sidebar-overlay {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ================================================= */
+/* 🎨 ADMIN ROOT & GENERAL STYLES */
+/* ================================================= */
+.admin-root {
+  min-height: 100vh;
+  background: #f8f9fa;
+  position: relative;
+}
+
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ================================================= */
+/* 📄 PAGE HEADER */
+/* ================================================= */
+.page-header {
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease;
+}
+
+.page-header-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.page-header p {
+  font-size: 1rem;
+  color: #6c757d;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Mobile Page Header */
+@media (max-width: 767px) {
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .page-header p {
+    font-size: 0.9rem;
+  }
+}
+
+/* ================================================= */
+/* 📊 STAT CARDS */
+/* ================================================= */
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.stat-card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Stat Cards */
+@media (max-width: 767px) {
+  .stat-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+/* ================================================= */
+/* 🎨 SETTINGS GRID */
+/* ================================================= */
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.settings-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.settings-item h3 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.settings-item p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+/* Mobile Settings Grid */
+@media (max-width: 767px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .settings-item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* ================================================= */
+/* 🔘 BUTTONS */
+/* ================================================= */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.35);
+}
+
+.btn-outline {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* ================================================= */
+/* 🔄 ANIMATIONS */
+/* ================================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* ================================================= */
+/* 📱 RESPONSIVE UTILITIES */
+/* ================================================= */
+
+/* Hide on mobile */
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Hide on tablet and below */
+@media (max-width: 1023px) {
+  .hide-tablet {
+    display: none !important;
+  }
+}
+
+/* Show only on mobile */
+.show-mobile {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* iOS Safari smooth scroll */
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+/* Standard smooth scrolling fallback */
+@supports (scrollbar-width: auto) or (scrollbar-color: auto) {
+  .table-responsive {
+    scrollbar-width: thin; /* Firefox */
+  }
+}
+
+@supports not (-webkit-overflow-scrolling: touch) {
+  .table-responsive::-webkit-scrollbar {
+    height: 8px; /* Custom scrollbar for Chrome/Safari/Edge */
+  }
+  .table-responsive::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+}
+
+/* Custom Scrollbar for Tables */
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f1f3f5;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+}
+
+/* Base Responsive Table Styles */
+.responsive-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 800px; /* Ensures horizontal scroll on smaller screens */
+}
+
+/* Jobs Table */
+.jobs-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.jobs-table thead {
+  background: #f8f9fa;
+}
+
+.jobs-table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6c757d;
+  text-transform: uppercase;
+  border-bottom: 2px solid #dee2e6;
+  white-space: nowrap;
+}
+
+.jobs-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f1f3f5;
+  vertical-align: middle;
+}
+
+.jobs-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.jobs-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* ================================================= */
+/* 📱 MOBILE RESPONSIVE TABLE STYLES */
+/* ================================================= */
+
+/* Mobile: Stack table cells vertically */
+@media (max-width: 767px) {
+  .table-responsive {
+    border-radius: 8px;
+  }
+  
+  /* Make tables stack on mobile */
+  .responsive-table,
+  .jobs-table {
+    min-width: 100%;
+    display: block;
+  }
+  
+  .responsive-table thead,
+  .jobs-table thead {
+    display: none; /* Hide headers on mobile */
+  }
+  
+  .responsive-table tbody,
+  .jobs-table tbody {
+    display: block;
+    width: 100%;
+  }
+  
+  .responsive-table tr,
+  .jobs-table tr {
+    display: block;
+    margin-bottom: 16px;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+  
+  .responsive-table td,
+  .jobs-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px !important;
+    text-align: right !important;
+    border-bottom: 1px solid #f1f3f5;
+    min-height: 50px;
+  }
+  
+  .responsive-table td:last-child,
+  .jobs-table td:last-child {
+    border-bottom: none;
+  }
+  
+  /* Add labels before content on mobile */
+  .responsive-table td::before,
+  .jobs-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #495057;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex: 0 0 40%;
+    text-align: left;
+  }
+  
+  /* Special styling for action buttons on mobile */
+  .responsive-table td[data-label="Action"],
+  .responsive-table td[data-label="Actions"],
+  .jobs-table td[data-label="Action"],
+  .jobs-table td[data-label="Actions"] {
+    justify-content: center;
+  }
+  
+  .responsive-table td[data-label="Action"]::before,
+  .responsive-table td[data-label="Actions"]::before,
+  .jobs-table td[data-label="Action"]::before,
+  .jobs-table td[data-label="Actions"]::before {
+    display: none;
+  }
+}
+
+/* Tablet: Slightly smaller padding */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .responsive-table th,
+  .responsive-table td,
+  .jobs-table th,
+  .jobs-table td {
+    padding: 12px;
+  }
+  
+  .responsive-table,
+  .jobs-table {
+    font-size: 14px;
+  }
+}
+
+/* ================================================= */
+/* 🎨 TABLE SCROLL INDICATOR */
+/* ================================================= */
+
+/* Add visual hint that table is scrollable */
+.table-responsive::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.table-responsive:not(:hover)::after {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .table-responsive::after {
+    display: none;
+  }
+}
+
+/* ================================================= */
+/* 📊 TABLE LOADING STATE */
+/* ================================================= */
+
+.table-loading {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+}
+
+.table-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 1s linear infinite;
+}
+
+/* ================================================= */
+/* 📱 MOBILE TABLE ENHANCEMENTS */
+/* ================================================= */
+
+@media (max-width: 767px) {
+  /* Add spacing between mobile table cards */
+  .responsive-table tr,
+  .jobs-table tr {
+    margin-bottom: 20px;
+  }
+  
+  /* First row in mobile card has no top border */
+  .responsive-table tr td:first-child,
+  .jobs-table tr td:first-child {
+    border-top: none;
+  }
+  
+  /* Improve button wrapping on mobile */
+  .responsive-table td button,
+  .jobs-table td button {
+    white-space: nowrap;
+  }
+  
+  /* Stack buttons vertically on very small screens */
+  @media (max-width: 400px) {
+    .responsive-table td[data-label="Actions"] > div,
+    .responsive-table td[data-label="Action"] > div {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .responsive-table td[data-label="Actions"] > div button,
+    .responsive-table td[data-label="Action"] > div button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}/* Center action buttons on all devices */
+.table-actions-center {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Desktop - keep centered */
+@media (min-width: 768px) {
+  .table-actions-center {
+    justify-content: center;
+  }
+}
+
+/* Mobile - center in card layout */
+@media (max-width: 767px) {
+  .responsive-table td[data-label="Actions"] .table-actions-center {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* Center the entire action cell */
+  .responsive-table td[data-label="Actions"] {
+    justify-content: center !important;
+  }
+  
+  /* Stack buttons vertically on very small screens */
+  @media (max-width: 400px) {
+    .table-actions-center {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+}

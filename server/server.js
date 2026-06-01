@@ -1,0 +1,100 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import { startCronJobs } from "./utils/cronJobs.js";
+
+dotenv.config();
+connectDB();
+startCronJobs();
+const app = express();
+/* ===================== CORS CONFIG (FINAL & SAFE) ===================== */
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://find-my-career-gq0uii9i7-shahbaz-amans-projects.vercel.app",
+];
+
+/* ===================== CORS CONFIG (VERCEL-SAFE) ===================== */
+const corsOptions = {
+  origin: (origin, callback) => {
+    // allow requests with no origin (Postman, server-to-server)
+    if (!origin) return callback(null, true);
+
+    // allow localhost
+    if (
+      origin.startsWith("http://localhost")
+    ) {
+      return callback(null, true);
+    }
+
+    // allow any Vercel preview / production domain
+    if (origin.endsWith(".vercel.app")) {
+      return callback(null, true);
+    }
+
+    // otherwise block
+    return callback(null, false);
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+
+/* ===================== BODY PARSERS ===================== */
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true }));
+
+/* ===================== TEST ROUTE ===================== */
+app.get("/", (req, res) => {
+  res.send("FindMyCareer API is running 🚀");
+});
+
+/* ===================== ROUTES ===================== */
+import roleRoutes from "./routes/roleRoutes.js";
+import companyRoutes from "./routes/companyRoutes.js";
+import jobRoutes from "./routes/jobRoutes.js";
+import learningRoutes from "./routes/learningRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
+import applicationRoutes from "./routes/applicationRoutes.js";
+import companyProfileRoute from "./routes/companyProfileRoute.js";
+import jobAutoClose from "./utils/jobAutoClose.js";
+import queryRoutes from "./routes/queryRoutes.js";
+import adminUserRoutes from "./routes/adminUserRoutes.js";
+import interviewRoutes from "./routes/interviewRoutes.js";
+import emailTestRoutes from "./routes/emailTestRoutes.js";
+import savedJobRoutes from "./routes/savedJobRoutes.js";
+import preferenceRoutes from "./routes/preferences.js";
+import courseProgressRoutes from "./routes/courseProgress.js";
+app.use("/api/course-progress", courseProgressRoutes);
+app.use("/api", emailTestRoutes);
+app.use("/api/admin", adminUserRoutes);
+app.use("/api/queries", queryRoutes);
+app.use("/api/companies", companyProfileRoute);
+app.use("/api/applications", applicationRoutes);
+app.use("/api/roles", roleRoutes);
+app.use("/api/companies", companyRoutes);
+app.use("/api/jobs", jobRoutes);
+app.use("/api/learning", learningRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/interviews", interviewRoutes);
+app.use("/api/saved-jobs", savedJobRoutes);
+app.use("/api/preferences", preferenceRoutes);
+/* ===================== CRON ===================== */
+jobAutoClose();
+
+/* ===================== SERVER ===================== */
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
