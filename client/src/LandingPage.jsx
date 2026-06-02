@@ -1,543 +1,16 @@
-// import { FaRocket, FaBriefcase, FaCheckCircle, FaBuilding, FaCalendarDay, FaUserPlus, FaSearch, FaPaperPlane } from "react-icons/fa";
-// import { useNavigate } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import { toast } from "react-toastify";
-// import axios from "axios";
-
-// function LandingPage() {
-//   const navigate = useNavigate();
-//   const storedUser = JSON.parse(localStorage.getItem("user"));
-//   const role = storedUser?.role || "guest";
-//   useEffect(() => {
-//   if (role !== "guest") return;
-
-//   const timer = setTimeout(() => {
-//     toast.info(
-//       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-//         <div style={{ fontWeight: "700", fontSize: "14px" }}>
-//           🚀 You're browsing as a guest
-//         </div>
-//         <div style={{ fontSize: "13px", color: "#555" }}>
-//           Create a free account to apply for jobs and unlock full features!
-//         </div>
-//         <button
-//           onClick={() => { navigate("/login"); toast.dismiss(); }}
-//           style={{
-//             marginTop: "6px",
-//             background: "linear-gradient(135deg, #060729ff 0%, #0c248dff 100%)",
-//             color: "white", border: "none",
-//             padding: "7px 16px", borderRadius: "8px",
-//             cursor: "pointer", fontWeight: "600",
-//             fontSize: "13px", width: "fit-content"
-//           }}
-//         >
-//           Create Account →
-//         </button>
-//       </div>,
-//       {
-//         position: "bottom-right",
-//         autoClose: 8000,
-//         toastId: "guest-prompt",  
-//         closeOnClick: false,
-//         pauseOnHover: true,
-//       }
-//     );
-//   }, 6000);
-
-//   return () => clearTimeout(timer);
-// }, []); // ← runs once on mount
-//   console.log("ROLE STATE >>>", `"${role}"`, typeof role);
-
-//   const scrollToJobs = () => {
-//     const el = document.getElementById("company-section");
-//     if (el) {
-//       el.scrollIntoView({ behavior: "smooth" });
-//     }
-//   };
-
-//   const gotoForm = () => {
-//     navigate("/addJobForm");
-//   };
-
-//   return (
-//     <div style={{
-//       minHeight: "100vh",
-//       background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-//       padding: "60px 20px"
-//     }}>
-//       <div style={{
-//         maxWidth: "1200px",
-//         margin: "0 auto"
-//       }}>
-//         {/* ================= HERO SECTION ================= */}
-//         <div style={{ textAlign: "center" }}>
-//           {/* Badge */}
-//           <div
-//             style={{
-//               display: "inline-flex",
-//               alignItems: "center",
-//               gap: "12px",
-//               background: "linear-gradient(135deg, #060729ff 0%, #0c248dff 100%)",
-//               padding: "12px 28px",
-//               borderRadius: "50px",
-//               color: "white",
-//               fontSize: "15px",
-//               fontWeight: "600",
-//               marginBottom: "30px",
-//               boxShadow: "0 8px 24px rgba(13, 110, 253, 0.3)",
-//               animation: "float 3s ease-in-out infinite",
-//             }}
-//           >
-//             <FaRocket style={{ fontSize: "18px" }} />
-//             Over 100K+ Jobs Available
-//           </div>
-
-//           {/* ===== JOB SEEKER + GUEST HERO ===== */}
-//           {(role === "job seekers" || role === "guest") && (
-//             <div>
-//               <h1
-//                 style={{
-//                   fontSize: "clamp(2.5rem, 6vw, 5rem)",
-//                   fontWeight: "900",
-//                   color: "#1a1a1a",
-//                   marginBottom: "24px",
-//                   lineHeight: "1.1",
-//                   letterSpacing: "-2px",
-//                 }}
-//               >
-//                 Find Your Dream Job
-//                 <br />
-//                 <span
-//                   style={{
-//                     background: "linear-gradient(135deg, #060729ff 0%, #0c248dff 100%)",
-//                     WebkitBackgroundClip: "text",
-//                     WebkitTextFillColor: "transparent",
-//                     backgroundClip: "text",
-//                   }}
-//                 >
-//                   In Minutes
-//                 </span>
-//               </h1>
-
-//               <p
-//                 style={{
-//                   fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
-//                   color: "#6c757d",
-//                   lineHeight: "1.7",
-//                   marginBottom: "0",
-//                   maxWidth: "700px",
-//                   margin: "0 auto 40px",
-//                   fontWeight: "400",
-//                 }}
-//               >
-//                 Connect with top employers and discover opportunities that match
-//                 your skills and aspirations
-//               </p>
-//             </div>
-//           )}
-
-//           {/* ===== RECRUITER HERO ===== */}
-//           {role === "recruiters" && (
-//             <div>
-//               <h1
-//                 style={{
-//                   fontSize: "clamp(2.5rem, 6vw, 5rem)",
-//                   fontWeight: "900",
-//                   color: "#1a1a1a",
-//                   marginBottom: "24px",
-//                   lineHeight: "1.1",
-//                   letterSpacing: "-2px",
-//                 }}
-//               >
-//                 Find Your Dream Candidates
-//                 <br />
-//                 <span
-//                   style={{
-//                     background: "linear-gradient(135deg, #060729ff 0%, #0c248dff 100%)",
-//                     WebkitBackgroundClip: "text",
-//                     WebkitTextFillColor: "transparent",
-//                     backgroundClip: "text",
-//                   }}
-//                 >
-//                   In Minutes
-//                 </span>
-//               </h1>
-
-//               <p
-//                 style={{
-//                   fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
-//                   color: "#6c757d",
-//                   lineHeight: "1.7",
-//                   marginBottom: "0",
-//                   maxWidth: "700px",
-//                   margin: "0 auto 40px",
-//                   fontWeight: "400",
-//                 }}
-//               >
-//                 Discover and engage with leading employers aligned with your
-//                 career goals
-//               </p>
-//             </div>
-//           )}
-
-//           {/* ================= ROLE BASED BUTTONS ================= */}
-//           <div
-//             style={{
-//               display: "flex",
-//               gap: "20px",
-//               justifyContent: "center",
-//               marginTop: "40px",
-//             }}
-//           >
-//             <button
-//               onClick={role === "recruiters" ? gotoForm : scrollToJobs}
-//               style={{
-//                 background: "linear-gradient(135deg, #060729ff 0%, #0c248dff 100%)",
-//                 color: "white",
-//                 border: "none",
-//                 padding: "18px 48px",
-//                 fontSize: "16px",
-//                 fontWeight: "700",
-//                 borderRadius: "12px",
-//                 cursor: "pointer",
-//                 boxShadow: "0 12px 28px rgba(13, 110, 253, 0.35)",
-//                 transition: "all 0.3s ease",
-//                 textTransform: "uppercase",
-//                 letterSpacing: "1px",
-//               }}
-//               onMouseEnter={(e) => {
-//                 e.target.style.transform = "translateY(-3px)";
-//                 e.target.style.boxShadow = "0 16px 32px rgba(13, 110, 253, 0.45)";
-//               }}
-//               onMouseLeave={(e) => {
-//                 e.target.style.transform = "translateY(0)";
-//                 e.target.style.boxShadow = "0 12px 28px rgba(13, 110, 253, 0.35)";
-//               }}
-//             >
-//               {role === "recruiters" ? "ADD JOB" : "FIND JOB"}
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* ================= STATS SECTION ================= */}
-//         {(role === "job seekers" || role === "guest") && (
-//          <div
-//   style={{
-//     display: "grid",
-//     gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-//     gap: "24px",
-//     width: "100%",
-//     maxWidth: "1200px",
-//     margin: "60px auto",
-//     padding: "0 20px",
-//     boxSizing: "border-box"
-//   }}
-// >
-//   {[
-//     { icon: <FaBriefcase />, count: "1000+", label: "jobs posted" },
-//     { icon: <FaCheckCircle />, count: "100%", label: "verified" },
-//     { icon: <FaBuilding />, count: "200+", label: "companies" },
-//     { icon: <FaCalendarDay />, count: "Daily", label: "updates" },
-//   ].map((item, index) => (
-//     <div
-//       key={index}
-//       style={{
-//         background: "white",
-//         padding: "40px 24px",
-//         borderRadius: "16px",
-//         boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
-//         transition: "all 0.3s ease",
-//         cursor: "default",
-//         display: "flex",
-//         flexDirection: "column",
-//         alignItems: "center",
-//         justifyContent: "center",
-//         textAlign: "center"
-//       }}
-//       onMouseEnter={(e) => {
-//         e.currentTarget.style.transform = "translateY(-8px)";
-//         e.currentTarget.style.boxShadow = "0 12px 32px rgba(13, 110, 253, 0.15)";
-//       }}
-//       onMouseLeave={(e) => {
-//         e.currentTarget.style.transform = "translateY(0)";
-//         e.currentTarget.style.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.08)";
-//       }}
-//     >
-//       <div style={{ fontSize: "32px", color: "#0d6efd", marginBottom: "16px" }}>
-//         {item.icon}
-//       </div>
-//       <h1 style={{ 
-//         fontSize: "clamp(2rem, 5vw, 2.5rem)", 
-//         fontWeight: "800", 
-//         color: "#1a1a1a", 
-//         margin: "0 0 8px 0" 
-//       }}>
-//         {item.count}
-//       </h1>
-//       <p style={{ 
-//         fontSize: "16px", 
-//         color: "#6c757d", 
-//         margin: "0", 
-//         fontWeight: "500",
-//         textTransform: "capitalize" 
-//       }}>
-//         {item.label}
-//       </p>
-//     </div>
-//   ))}
-// </div>
-//         )}
-
-//         {role === "recruiters" && (
-//    <div
-//   style={{
-//     display: "grid",
-//     gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-//     gap: "24px",
-//     width: "100%",
-//     maxWidth: "1200px",
-//     margin: "60px auto",
-//     padding: "0 20px",
-//     boxSizing: "border-box"
-//   }}
-// >
-//   {[
-//     { icon: <FaBriefcase />, count: "1000+", label: "job seekers" },
-//     { icon: <FaCheckCircle />, count: "100%", label: "verified" },
-//     { icon: <FaBuilding />, count: "200+", label: "companies" },
-//     { icon: <FaCalendarDay />, count: "Daily", label: "updates" },
-//   ].map((item, index) => (
-//     <div
-//       key={index}
-//       style={{
-//         background: "white",
-//         padding: "40px 24px",
-//         borderRadius: "16px",
-//         boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
-//         transition: "all 0.3s ease",
-//         cursor: "default",
-//         display: "flex",
-//         flexDirection: "column",
-//         alignItems: "center",
-//         justifyContent: "center",
-//         textAlign: "center"
-//       }}
-//       onMouseEnter={(e) => {
-//         e.currentTarget.style.transform = "translateY(-8px)";
-//         e.currentTarget.style.boxShadow = "0 12px 32px rgba(13, 110, 253, 0.15)";
-//       }}
-//       onMouseLeave={(e) => {
-//         e.currentTarget.style.transform = "translateY(0)";
-//         e.currentTarget.style.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.08)";
-//       }}
-//     >
-//       <div style={{ fontSize: "32px", color: "#0d6efd", marginBottom: "16px" }}>
-//         {item.icon}
-//       </div>
-//       <h1 style={{ 
-//         fontSize: "clamp(1.8rem, 4vw, 2.5rem)", 
-//         fontWeight: "800", 
-//         color: "#1a1a1a", 
-//         margin: "0 0 8px 0" 
-//       }}>
-//         {item.count}
-//       </h1>
-//       <p style={{ 
-//         fontSize: "16px", 
-//         color: "#6c757d", 
-//         margin: "0", 
-//         fontWeight: "500",
-//         textTransform: "capitalize"
-//       }}>
-//         {item.label}
-//       </p>
-//     </div>
-//   ))}
-// </div>
-//         )}
-//       </div>
-
-//       {/* ================= HOW IT WORKS SECTION (GUEST ONLY) ================= */}
-//       {role === "guest" && (
-//         <div
-//           style={{
-//             background: "linear-gradient(135deg, #dce8ffcc 0%, #eaf0ffcc 100%)",
-//             padding: "60px 20px 80px",
-//             marginTop: "20px",
-//           }}
-//         >
-//           <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-//             {/* Section Heading */}
-//             <h2
-//               style={{
-//                 textAlign: "center",
-//                 fontSize: "clamp(1.8rem, 5vw, 2.8rem)",
-//                 fontWeight: "900",
-//                 color: "#1a1a1a",
-//                 marginBottom: "48px",
-//                 letterSpacing: "-1px",
-//               }}
-//             >
-//               How It Works
-//             </h2>
-
-//             {/* Steps */}
-//             {[
-//               {
-//                 number: "1",
-//                 icon: <FaUserPlus />,
-//                 title: "Create Profile",
-//                 description:
-//                   "Sign up and build your professional profile to showcase your skills and experience.",
-//               },
-//               {
-//                 number: "2",
-//                 icon: <FaSearch />,
-//                 title: "Discover Jobs",
-//                 description:
-//                   "Browse through thousands of job listings or get personalized job recommendations.",
-//               },
-//               {
-//                 number: "3",
-//                 icon: <FaPaperPlane />,
-//                 title: "Apply & Track",
-//                 description:
-//                   "Apply to your dream jobs with one click and track your application status.",
-//               },
-//             ].map((step, index) => (
-//               <div
-//                 key={index}
-//                 style={{
-//                   background: "white",
-//                   borderRadius: "20px",
-//                   padding: "40px 32px",
-//                   marginBottom: index < 2 ? "24px" : "0",
-//                   boxShadow: "0 4px 20px rgba(13, 110, 253, 0.08)",
-//                   display: "flex",
-//                   flexDirection: "column",
-//                   alignItems: "center",
-//                   textAlign: "center",
-//                   transition: "all 0.3s ease",
-//                 }}
-//                 onMouseEnter={(e) => {
-//                   e.currentTarget.style.transform = "translateY(-6px)";
-//                   e.currentTarget.style.boxShadow = "0 16px 40px rgba(13, 110, 253, 0.15)";
-//                 }}
-//                 onMouseLeave={(e) => {
-//                   e.currentTarget.style.transform = "translateY(0)";
-//                   e.currentTarget.style.boxShadow = "0 4px 20px rgba(13, 110, 253, 0.08)";
-//                 }}
-//               >
-//                 {/* Step Number Circle */}
-//                 <div
-//                   style={{
-//                     width: "64px",
-//                     height: "64px",
-//                     borderRadius: "50%",
-//                     background: "linear-gradient(135deg, #1a56db 0%, #0c248dff 100%)",
-//                     display: "flex",
-//                     alignItems: "center",
-//                     justifyContent: "center",
-//                     color: "white",
-//                     fontSize: "26px",
-//                     fontWeight: "800",
-//                     marginBottom: "20px",
-//                     boxShadow: "0 8px 20px rgba(13, 110, 253, 0.35)",
-//                   }}
-//                 >
-//                   {step.number}
-//                 </div>
-
-//                 {/* Title */}
-//                 <h3
-//                   style={{
-//                     fontSize: "1.4rem",
-//                     fontWeight: "800",
-//                     color: "#1a1a1a",
-//                     margin: "0 0 12px 0",
-//                   }}
-//                 >
-//                   {step.title}
-//                 </h3>
-
-//                 {/* Description */}
-//                 <p
-//                   style={{
-//                     fontSize: "1rem",
-//                     color: "#6c757d",
-//                     lineHeight: "1.7",
-//                     margin: "0",
-//                     maxWidth: "420px",
-//                   }}
-//                 >
-//                   {step.description}
-//                 </p>
-//               </div>
-//             ))}
-
-//             {/* CTA Button */}
-//             <div style={{ textAlign: "center", marginTop: "40px" }}>
-//               <button
-//                 onClick={() => navigate("/login")}
-//                 style={{
-//                   background: "linear-gradient(135deg, #060729ff 0%, #0c248dff 100%)",
-//                   color: "white",
-//                   border: "none",
-//                   padding: "16px 44px",
-//                   fontSize: "16px",
-//                   fontWeight: "700",
-//                   borderRadius: "12px",
-//                   cursor: "pointer",
-//                   boxShadow: "0 12px 28px rgba(13, 110, 253, 0.35)",
-//                   transition: "all 0.3s ease",
-//                   textTransform: "uppercase",
-//                   letterSpacing: "1px",
-//                 }}
-//                 onMouseEnter={(e) => {
-//                   e.target.style.transform = "translateY(-3px)";
-//                   e.target.style.boxShadow = "0 16px 32px rgba(13, 110, 253, 0.45)";
-//                 }}
-//                 onMouseLeave={(e) => {
-//                   e.target.style.transform = "translateY(0)";
-//                   e.target.style.boxShadow = "0 12px 28px rgba(13, 110, 253, 0.35)";
-//                 }}
-//               >
-//                 Get Started Free →
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-
-//       <style>{`
-//         @keyframes float {
-//           0%, 100% {
-//             transform: translateY(0px);
-//           }
-//           50% {
-//             transform: translateY(-10px);
-//           }
-//         }
-//       `}</style>
-//     </div>
-//   );
-// }
-
-// export default LandingPage;
-
-
-
-
-import { FaRocket, FaBriefcase, FaCheckCircle, FaBuilding, FaCalendarDay, FaUserPlus, FaSearch, FaPaperPlane, FaMapMarkerAlt } from "react-icons/fa";
+import { FaRocket, FaBriefcase, FaCheckCircle, FaBuilding, FaCalendarDay, FaUserPlus, FaSearch, FaPaperPlane, FaMapMarkerAlt, FaCode, FaDatabase, FaMobileAlt, FaCloud, FaShieldAlt, FaChartLine, FaArrowRight, FaFire, FaGraduationCap, FaLaptopCode } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import "./css/LandingPage.css"
+import "./css/LandingPage.css";
 
 function LandingPage() {
   const navigate = useNavigate();
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const role = storedUser?.role || "guest";
+  const [countersStarted, setCountersStarted] = useState(false);
+  const [counts, setCounts] = useState({ jobs: 0, companies: 0, seekers: 0, placed: 0 });
+  const jobSectionRef = useRef(null);
 
   useEffect(() => {
     if (role !== "guest") return;
@@ -556,10 +29,72 @@ function LandingPage() {
     return () => clearTimeout(timer);
   }, [role, navigate]);
 
+  // Counter animation on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !countersStarted) {
+          setCountersStarted(true);
+          animateCounters();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (jobSectionRef.current) observer.observe(jobSectionRef.current);
+    return () => observer.disconnect();
+  }, [countersStarted]);
+
+  const animateCounters = () => {
+    const targets = { jobs: 5000, companies: 450, seekers: 100000, placed: 12000 };
+    const duration = 2000;
+    const steps = 60;
+    let step = 0;
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCounts({
+        jobs: Math.floor(targets.jobs * ease),
+        companies: Math.floor(targets.companies * ease),
+        seekers: Math.floor(targets.seekers * ease),
+        placed: Math.floor(targets.placed * ease),
+      });
+      if (step >= steps) clearInterval(timer);
+    }, duration / steps);
+  };
+
   const scrollToJobs = () => {
     const el = document.getElementById("jobs-section");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const categories = [
+    { icon: <FaCode />, title: "Software Development", count: "1,200+ jobs", tags: ["React", "Node.js", "Python", "Java"] },
+    { icon: <FaMobileAlt />, title: "Mobile & App Dev", count: "380+ jobs", tags: ["Android", "iOS", "Flutter", "React Native"] },
+    { icon: <FaDatabase />, title: "Data & Analytics", count: "560+ jobs", tags: ["Data Science", "ML", "SQL", "Power BI"] },
+    { icon: <FaCloud />, title: "Cloud & DevOps", count: "290+ jobs", tags: ["AWS", "Azure", "Docker", "Kubernetes"] },
+    { icon: <FaShieldAlt />, title: "Cybersecurity", count: "150+ jobs", tags: ["Ethical Hacking", "SOC", "VAPT", "ISO 27001"] },
+    { icon: <FaChartLine />, title: "Digital Marketing", count: "310+ jobs", tags: ["SEO", "SEM", "Content", "Social Media"] },
+  ];
+
+  const featuredRoles = [
+    { title: "React Developer", company: "TechSolutions Pvt Ltd", location: "Technopark, Trivandrum", type: "Full Time", exp: "1–3 yrs", tag: "Hot" },
+    { title: "Python Backend Engineer", company: "Infopark Startup", location: "Infopark, Kochi", type: "Full Time", exp: "2–4 yrs", tag: "New" },
+    { title: "Flutter Developer", company: "AppWorks Kerala", location: "Remote / Kozhikode", type: "Full Time", exp: "Fresher OK", tag: "Fresher" },
+    { title: "Data Analyst", company: "Analytics Hub", location: "Cyberpark, Kozhikode", type: "Contract", exp: "1–2 yrs", tag: "Hot" },
+    { title: "UI/UX Designer", company: "DesignCraft", location: "Technopark, Trivandrum", type: "Full Time", exp: "0–2 yrs", tag: "New" },
+    { title: "DevOps Engineer", company: "CloudBase Kerala", location: "Remote", type: "Full Time", exp: "3–5 yrs", tag: "Urgent" },
+  ];
+
+  const tagColor = (tag) => {
+    if (tag === "Hot") return "tag-hot";
+    if (tag === "New") return "tag-new";
+    if (tag === "Fresher") return "tag-fresher";
+    if (tag === "Urgent") return "tag-urgent";
+    return "tag-new";
+  };
+
+  const companies = ["TCS", "Infosys", "Wipro", "UST Global", "IBS Group", "Cognizant", "Ernst & Young", "Mphasis", "NeST Group", "Quest Global", "Experion", "Envestnet"];
 
   return (
     <div className="landing-container">
@@ -571,24 +106,23 @@ function LandingPage() {
         {/* ================= HERO SECTION ================= */}
         <header className="hero-section">
           <div className="hero-badge animate-float">
-            {/* <FaRocket className="icon-pulse" />  */}
             <span>#1 Job Portal in Kerala</span>
           </div>
 
           <h1 className="hero-title">
-            Kerala Jobs & <br/>
+            Kerala Jobs &amp; <br />
             <span className="text-gradient">IT Careers Portal</span>
           </h1>
 
           <p className="hero-subtitle">
-            Find the latest software roles, internships, and fresher vacancies across 
-            <strong> Technopark, Infopark, and Cyberpark.</strong> 
-            Join 100K+ candidates building their future in Kerala.
+            Find the latest software roles, internships, and fresher vacancies across{" "}
+            <strong>Technopark, Infopark, and Cyberpark.</strong> Join 100K+ candidates
+            building their future in Kerala.
           </p>
 
           <div className="hero-cta-group">
-            <button 
-              className="btn-primary" 
+            <button
+              className="btn-primary"
               onClick={role === "recruiters" ? () => navigate("/addJobForm") : scrollToJobs}
             >
               {role === "recruiters" ? "Post a Vacancy" : "Find Jobs Now"}
@@ -600,36 +134,22 @@ function LandingPage() {
 
           <div className="hero-tags">
             <span><FaCheckCircle /> Daily Updates</span>
-            <span><FaCheckCircle /> Freshers & Pro</span>
-            <span><FaCheckCircle /> IT & Non-IT</span>
+            <span><FaCheckCircle /> Freshers &amp; Pro</span>
+            <span><FaCheckCircle /> IT &amp; Non-IT</span>
           </div>
         </header>
 
-        {/* ================= STATS SECTION ================= */}
-        <section className="stats-grid">
-          {[
-            { icon: <FaBriefcase />, count: "5000+", label: "Active Jobs" },
-            { icon: <FaBuilding />, count: "450+", label: "IT Companies" },
-            { icon: <FaMapMarkerAlt />, count: "All Kerala", label: "Location Coverage" },
-            { icon: <FaCalendarDay />, count: "Daily", label: "New Openings" },
-          ].map((item, index) => (
-            <div key={index} className="stat-card">
-              <div className="stat-icon">{item.icon}</div>
-              <h3>{item.count}</h3>
-              <p>{item.label}</p>
-            </div>
-          ))}
-        </section>
+    
 
         {/* ================= HOW IT WORKS (GUEST/JOBSEEKER) ================= */}
         {(role === "guest" || role === "job seekers") && (
           <section className="how-it-works">
-            <h2 className="section-title">Your Path to Success</h2>
+            <h2 className="section-title">Start Your IT Career in Kerala in 3 Simple Steps</h2>
             <div className="steps-container">
               {[
-                { icon: <FaUserPlus />, title: "Create Profile", desc: "Build a digital resume tailored for Kerala's top tech firms." },
-                { icon: <FaSearch />, title: "Smart Search", desc: "Filter by Technopark, Infopark, or remote startups." },
-                { icon: <FaPaperPlane />, title: "Apply Directly", desc: "One-click apply and get instant interview notifications." },
+                { icon: <FaUserPlus />, title: "Create Profile", desc: "Build your professional profile and apply for IT & Non-IT jobs in Kerala, including opportunities from Technopark, Infopark, and leading software companies." },
+                { icon: <FaSearch />, title: "Smart Search", desc: "Search and filter jobs by location, experience level, or remote work opportunities." },
+                { icon: <FaPaperPlane />, title: "Apply Directly", desc: "Apply to software developer, website developer & Non-IT jobs with one click and receive interview updates instantly." },
               ].map((step, i) => (
                 <div key={i} className="step-card">
                   <div className="step-number">{i + 1}</div>
