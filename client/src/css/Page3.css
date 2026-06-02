@@ -102,45 +102,56 @@
   font-weight: 700;
   color: #34d399;
 }
-/* ─── FIXED CTA BUTTON STYLING (WHITE BACKGROUND & BLACK TEXT) ─── */
-.p3-cta-btn, 
-.p3-cta-btn:hover, 
-.p3-cta-btn:focus, 
-.p3-cta-btn:active,
-.p3-cta-btn:disabled {
+
+/* ─── CTA BUTTON — white bg, black text, beats Bootstrap ─── */
+.p3-section .p3-cta-btn.btn,
+.p3-section .p3-cta-btn.btn:hover,
+.p3-section .p3-cta-btn.btn:focus,
+.p3-section .p3-cta-btn.btn:active,
+.p3-section .p3-cta-btn.btn:focus-visible,
+.p3-section .p3-cta-btn.btn-primary,
+.p3-section .p3-cta-btn.btn-primary:hover,
+.p3-section .p3-cta-btn.btn-primary:focus,
+.p3-section .p3-cta-btn.btn-primary:active,
+.p3-cta-btn,
+.p3-cta-btn:hover,
+.p3-cta-btn:focus,
+.p3-cta-btn:active {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
-  
-  /* Hard set to solid pure white background with sharp black text */
-  background-color: #ffffff !important;
   background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
   color: #000000 !important;
   border: 1px solid #ffffff !important;
-  
+  outline: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
   padding: 13px 30px !important;
   font-size: clamp(13px, 1.8vw, 14px) !important;
   font-weight: 700 !important;
   font-family: 'Inter', sans-serif !important;
   border-radius: 100px !important;
   letter-spacing: -0.01em !important;
-  
-  /* Lock layout states completely down to prevent hover changes */
   opacity: 1 !important;
-  visibility: visible !important;
   transform: none !important;
-  transition: none !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: box-shadow 0.2s ease !important;
+  text-decoration: none !important;
+  -webkit-text-fill-color: #000000 !important;
 }
 
-/* Force arrow icon to match the black text color */
+.p3-cta-btn:hover,
+.p3-section .p3-cta-btn.btn:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* Arrow inside the button */
 .p3-btn-arrow {
   font-size: 16px;
-  color: #000000 !important; 
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
   display: inline-block;
-  transform: none !important;
-  transition: none !important;
 }
 
 /* ─── Stats ─── */
@@ -185,7 +196,7 @@
   position: relative;
   width: 100%;
   max-width: 320px;
-  height: 420px;
+  height: 360px;
 }
 
 /* ─── Individual Card ─── */
@@ -377,7 +388,7 @@
   }
   .p3-stack {
     max-width: 280px;
-    height: 390px;
+    height: 350px;
   }
   .p3-card {
     padding: 22px 20px 20px;
@@ -406,7 +417,7 @@
 @media (max-width: 380px) {
   .p3-stack {
     max-width: 240px;
-    height: 370px;
+    height: 320px;
   }
   .p3-card {
     padding: 18px 16px;
