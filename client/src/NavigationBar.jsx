@@ -1,6 +1,8 @@
+
+
 import React, { useEffect, useState } from "react";
 import "./css/NavigationBar.css";
-import logo from "./assets/logo1.png";
+import logo from "./assets/kerala_it_park_jobs_.jpeg";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Menu from "@mui/material/Menu";
@@ -18,15 +20,13 @@ const NavigationBar = () => {
   const [user, setUser] = useState(getUser());
   const [anchorEl, setAnchorEl] = useState(null);
   const [imgError, setImgError] = useState(false);
-  const [unreadCount, setUnreadCount] = useState(0); // ✅ NEW
+  const [unreadCount, setUnreadCount] = useState(0);
 
-  // 🔁 Re-read user on route change (login / logout fix)
   useEffect(() => {
     setUser(getUser());
     setImgError(false);
   }, [location.pathname]);
 
-  // ✅ Fetch unread notification count
   useEffect(() => {
     const fetchUnreadCount = async () => {
       const userId = getUserId();
@@ -36,12 +36,12 @@ const NavigationBar = () => {
         const unread = res.data.filter((n) => !n.isRead).length;
         setUnreadCount(unread);
       } catch (err) {
-        // silently fail — badge just won't show
+        // silently fail
       }
     };
 
     fetchUnreadCount();
-  }, [location.pathname]); // re-fetch on every route change
+  }, [location.pathname]);
 
   const role = user?.role;
 
@@ -61,7 +61,7 @@ const NavigationBar = () => {
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, logout",
-      confirmButtonColor: "#f40076",
+      confirmButtonColor: "#0052cc",
     }).then((result) => {
       if (result.isConfirmed) {
         logout();
@@ -84,56 +84,28 @@ const NavigationBar = () => {
     setAnchorEl(null);
   };
 
-  const renderUserAvatar = () =>
-    userLogo ? (
-      <img
-        src={userLogo}
-        alt="user"
-        style={{
-          width: "40px",
-          height: "40px",
-          borderRadius: "50%",
-          objectFit: "contain",
-          objectPosition: "center",
-          border: "2px solid #eee",
-          background: "#f5f5f5",
-        }}
-        onError={() => setImgError(true)}
-      />
-    ) : (
-      <FaUser
-        style={{
-          width: "40px",
-          height: "26px",
-          color: "#2c2b2b",
-        }}
-      />
-    );
+  const renderUserAvatar = () => (
+    <div className="avatar-container">
+      {userLogo ? (
+        <img
+          src={userLogo}
+          alt="user"
+          className="user-avatar"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <div className="user-avatar-placeholder">
+          <FaUser />
+        </div>
+      )}
+    </div>
+  );
 
-  // ✅ Reusable notification icon with badge
   const NotificationIcon = () => (
-    <div style={{ position: "relative", display: "inline-flex" }}>
-      <IoIosNotifications style={{ fontSize: "26px", color: "#333" }} />
+    <div className="notification-wrapper-icon">
+      <IoIosNotifications className="notification-bell" />
       {unreadCount > 0 && (
-        <span
-          style={{
-            position: "absolute",
-            top: "-4px",
-            right: "-6px",
-            background: "#f40076",
-            color: "#fff",
-            borderRadius: "50%",
-            fontSize: "10px",
-            fontWeight: "bold",
-            minWidth: "17px",
-            height: "17px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: 1,
-            padding: "0 3px",
-          }}
-        >
+        <span className="notification-badge">
           {unreadCount > 99 ? "99+" : unreadCount}
         </span>
       )}
@@ -144,41 +116,38 @@ const NavigationBar = () => {
     <div className="navigation-wrapper">
       <Navbar
         expand="lg"
-        className="px-lg-5 px-3 py-3 sticky-top shadow-sm bg-white"
+        className="px-lg-5 px-3 py-3 sticky-top custom-navbar"
         collapseOnSelect
       >
         {/* BRAND LOGO */}
-        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
-          <img src={logo} alt="logo" height="40" />
-          <span
-            className="d-none d-sm-inline-block"
-            style={{ fontWeight: "bold", marginLeft: "8px", color: "#222" }}
-          >
-            FIND MY CAREER
+        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center brand-logo">
+          <img src={logo} alt="logo" className="logo-img" />
+          <span className="brand-text d-none d-sm-inline-block">
+           Kerala IT Jobs
           </span>
         </Navbar.Brand>
 
         {/* 📱 MOBILE ICONS */}
-        <div className="d-flex align-items-center d-lg-none ms-auto">
+        <div className="d-flex align-items-center d-lg-none ms-auto header-mobile-actions">
           {user && (
-            <Nav.Link as={Link} to="/notification" className="p-0 me-3">
+            <Nav.Link as={Link} to="/notification" className="p-0 me-3 mobile-notif">
               <NotificationIcon />
             </Nav.Link>
           )}
-          <div onClick={handleMenuOpen} style={{ cursor: "pointer" }}>
+          <div onClick={handleMenuOpen} className="avatar-trigger">
             {renderUserAvatar()}
           </div>
         </div>
 
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
-          className="ms-2 border-0 shadow-none"
+          className="ms-2 custom-toggler"
         />
 
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" className="custom-collapse">
           {/* CENTER LINKS */}
-          <Nav className="mx-auto gap-lg-4 text-center text-lg-start mt-3 mt-lg-0">
-            <Nav.Link as={Link} to="/" className="nav-link-custom">
+          <Nav className="mx-auto gap-lg-4 text-center text-lg-start mt-3 mt-lg-0 nav-links-container">
+            <Nav.Link as={Link} to="/" className={`nav-link-custom ${location.pathname === "/" ? "active" : ""}`}>
               Home
             </Nav.Link>
             {role !== "recruiters" && (
@@ -186,33 +155,29 @@ const NavigationBar = () => {
                 Jobs
               </Nav.Link>
             )}
-            <Nav.Link href="/companies" className="nav-link-custom">
+            <Nav.Link href="/companies" className={`nav-link-custom ${location.pathname === "/companies" ? "active" : ""}`}>
               Companies
             </Nav.Link>
             {role !== "recruiters" && (
-              <Nav.Link href="/jobPrep">Job Prep</Nav.Link>
+              <Nav.Link href="/jobPrep" className={`nav-link-custom ${location.pathname === "/jobPrep" ? "active" : ""}`}>
+                Job Prep
+              </Nav.Link>
             )}
-            <Nav.Link href="/contactUs">Contact Us</Nav.Link>
+            <Nav.Link href="/contactUs" className={`nav-link-custom ${location.pathname === "/contactUs" ? "active" : ""}`}>
+              Contact Us
+            </Nav.Link>
           </Nav>
 
           {/* 💻 DESKTOP ACTIONS */}
-          <div className="d-none d-lg-flex align-items-center">
-            {user && (
+          <div className="d-none d-lg-flex align-items-center desktop-actions">
+            {user ? (
               <>
-                <Nav.Link as={Link} to="/notification" className="me-4 p-0">
+                <Nav.Link as={Link} to="/notification" className="me-4 p-0 desktop-notif">
                   <NotificationIcon />
                 </Nav.Link>
 
                 <Button
-                  className="px-4 py-2 me-3"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #f40076, #ff7a18)",
-                    border: "none",
-                    borderRadius: "8px",
-                    fontWeight: "bold",
-                    fontSize: "14px",
-                  }}
+                  className="btn-gradient me-3"
                   onClick={() =>
                     role === "job seekers"
                       ? navigate("/profile")
@@ -222,47 +187,39 @@ const NavigationBar = () => {
                   COMPLETE PROFILE
                 </Button>
               </>
+            ) : (
+              <div className="d-flex gap-2 me-3">
+                <Button variant="outline-primary" className="btn-modern-outline" onClick={() => navigate("/login")}>
+                  Login
+                </Button>
+                <Button className="btn-gradient" onClick={() => navigate("/signUp")}>
+                  Sign Up
+                </Button>
+              </div>
             )}
 
-            <div onClick={handleMenuOpen} style={{ cursor: "pointer" }}>
+            <div onClick={handleMenuOpen} className="avatar-trigger">
               {renderUserAvatar()}
             </div>
           </div>
 
-          {/* 📱 MOBILE ACTIONS */}
-          <div className="d-lg-none mt-3 pb-3">
+          {/* 📱 MOBILE ACTIONS COLLAPSIBLE */}
+          <div className="d-lg-none mt-3 pb-2 mobile-collapse-actions">
             {user ? (
               <Button
-                className="w-100 py-2"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #f40076, #ff7a18)",
-                  border: "none",
-                  borderRadius: "8px",
-                  fontWeight: "bold",
+                className="w-100 btn-gradient"
+                onClick={() => {
+                  role === "job seekers" ? navigate("/profile") : navigate("/CompanyProfileForm");
                 }}
-                onClick={() =>
-                  role === "job seekers"
-                    ? navigate("/profile")
-                    : navigate("/CompanyProfileForm")
-                }
               >
                 COMPLETE PROFILE
               </Button>
             ) : (
               <div className="d-flex flex-column gap-2">
-                <Button
-                  variant="outline-dark"
-                  className="w-100"
-                  onClick={() => navigate("/login")}
-                >
+                <Button variant="outline-primary" className="w-100 btn-modern-outline" onClick={() => navigate("/login")}>
                   Login
                 </Button>
-                <Button
-                  variant="dark"
-                  className="w-100"
-                  onClick={() => navigate("/signUp")}
-                >
+                <Button className="w-100 btn-gradient" onClick={() => navigate("/signUp")}>
                   Sign Up
                 </Button>
               </div>
@@ -277,69 +234,18 @@ const NavigationBar = () => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
         PaperProps={{
-          style: {
-            marginTop: "10px",
-            borderRadius: "12px",
-            minWidth: "160px",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-          },
+          className: "custom-dropdown-menu"
         }}
       >
-        {!user ? (
-          [
-            <MenuItem
-              key="register"
-              onClick={() => {
-                handleMenuClose();
-                navigate("/signUp");
-              }}
-            >
-              Register
-            </MenuItem>,
-            <MenuItem
-              key="login"
-              onClick={() => {
-                handleMenuClose();
-                navigate("/login");
-              }}
-            >
-              Login
-            </MenuItem>,
-          ]
-        ) : (
-          [
-            <MenuItem
-              key="profile"
-              onClick={() => {
-                handleMenuClose();
-                role === "job seekers"
-                  ? navigate("/manage")
-                  : navigate("/manageCompany");
-              }}
-            >
-              Profile Management
-            </MenuItem>,
-            <MenuItem
-              key="settings"
-              onClick={() => {
-                handleMenuClose();
-                role === "job seekers"
-                  ? navigate("/settings")
-                  : navigate("/settingsCompany");
-              }}
-            >
-              Account Settings
-            </MenuItem>,
-            <hr key="divider" style={{ margin: "8px 0" }} />,
-            <MenuItem
-              key="logout"
-              onClick={handleLogout}
-              style={{ color: "#dc3545", fontWeight: "bold" }}
-            >
-              Logout
-            </MenuItem>,
-          ]
-        )}
+        {!user ? [
+          <MenuItem key="register" onClick={() => { handleMenuClose(); navigate("/signUp"); }}>Register</MenuItem>,
+          <MenuItem key="login" onClick={() => { handleMenuClose(); navigate("/login"); }}>Login</MenuItem>
+        ] : [
+          <MenuItem key="profile" onClick={() => { handleMenuClose(); role === "job seekers" ? navigate("/manage") : navigate("/manageCompany"); }}>Profile Management</MenuItem>,
+          <MenuItem key="settings" onClick={() => { handleMenuClose(); role === "job seekers" ? navigate("/settings") : navigate("/settingsCompany"); }}>Account Settings</MenuItem>,
+          <hr key="divider" className="menu-divider" />,
+          <MenuItem key="logout" onClick={handleLogout} className="logout-item">Logout</MenuItem>
+        ]}
       </Menu>
     </div>
   );

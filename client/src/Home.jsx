@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import LandingPage from "./LandingPage";
 import Footer from "./Footer";
 import RecrutersPages from "./RecrutersPages";
 import JobSeekersPages from "./JobSeekersPages";
 import Page1 from "./Page1";
 import axios from "axios";
 import { getUser } from "./utils/auth";
+import LandingPage from "./LandingPage";
 
 const Home = () => {
   const [role, setRole] = useState(null);
