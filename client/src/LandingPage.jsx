@@ -1,4 +1,10 @@
-import { FaRocket, FaBriefcase, FaCheckCircle, FaBuilding, FaCalendarDay, FaUserPlus, FaSearch, FaPaperPlane, FaMapMarkerAlt, FaCode, FaDatabase, FaMobileAlt, FaCloud, FaShieldAlt, FaChartLine, FaArrowRight, FaFire, FaGraduationCap, FaLaptopCode } from "react-icons/fa";
+import { 
+  FaRocket, FaBriefcase, FaCheckCircle, FaBuilding, 
+  FaCalendarDay, FaUserPlus, FaSearch, FaPaperPlane, 
+  FaMapMarkerAlt, FaCode, FaDatabase, FaMobileAlt, 
+  FaCloud, FaShieldAlt, FaChartLine, FaArrowRight, 
+  FaFire, FaGraduationCap, FaLaptopCode 
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -68,44 +74,17 @@ function LandingPage() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const categories = [
-    { icon: <FaCode />, title: "Software Development", count: "1,200+ jobs", tags: ["React", "Node.js", "Python", "Java"] },
-    { icon: <FaMobileAlt />, title: "Mobile & App Dev", count: "380+ jobs", tags: ["Android", "iOS", "Flutter", "React Native"] },
-    { icon: <FaDatabase />, title: "Data & Analytics", count: "560+ jobs", tags: ["Data Science", "ML", "SQL", "Power BI"] },
-    { icon: <FaCloud />, title: "Cloud & DevOps", count: "290+ jobs", tags: ["AWS", "Azure", "Docker", "Kubernetes"] },
-    { icon: <FaShieldAlt />, title: "Cybersecurity", count: "150+ jobs", tags: ["Ethical Hacking", "SOC", "VAPT", "ISO 27001"] },
-    { icon: <FaChartLine />, title: "Digital Marketing", count: "310+ jobs", tags: ["SEO", "SEM", "Content", "Social Media"] },
-  ];
-
-  const featuredRoles = [
-    { title: "React Developer", company: "TechSolutions Pvt Ltd", location: "Technopark, Trivandrum", type: "Full Time", exp: "1–3 yrs", tag: "Hot" },
-    { title: "Python Backend Engineer", company: "Infopark Startup", location: "Infopark, Kochi", type: "Full Time", exp: "2–4 yrs", tag: "New" },
-    { title: "Flutter Developer", company: "AppWorks Kerala", location: "Remote / Kozhikode", type: "Full Time", exp: "Fresher OK", tag: "Fresher" },
-    { title: "Data Analyst", company: "Analytics Hub", location: "Cyberpark, Kozhikode", type: "Contract", exp: "1–2 yrs", tag: "Hot" },
-    { title: "UI/UX Designer", company: "DesignCraft", location: "Technopark, Trivandrum", type: "Full Time", exp: "0–2 yrs", tag: "New" },
-    { title: "DevOps Engineer", company: "CloudBase Kerala", location: "Remote", type: "Full Time", exp: "3–5 yrs", tag: "Urgent" },
-  ];
-
-  const tagColor = (tag) => {
-    if (tag === "Hot") return "tag-hot";
-    if (tag === "New") return "tag-new";
-    if (tag === "Fresher") return "tag-fresher";
-    if (tag === "Urgent") return "tag-urgent";
-    return "tag-new";
-  };
-
-  const companies = ["TCS", "Infosys", "Wipro", "UST Global", "IBS Group", "Cognizant", "Ernst & Young", "Mphasis", "NeST Group", "Quest Global", "Experion", "Envestnet"];
-
   return (
     <div className="landing-container">
-      {/* Animated Background Blobs */}
-      <div className="blob blob-1"></div>
-      <div className="blob blob-2"></div>
+      {/* Soft corporate layout branding orbs */}
+      <div className="blob blob-1" aria-hidden="true"></div>
+      <div className="blob blob-2" aria-hidden="true"></div>
 
       <div className="content-wrapper">
         {/* ================= HERO SECTION ================= */}
         <header className="hero-section">
           <div className="hero-badge animate-float">
+            <span className="hero-badge__dot"></span>
             <span>#1 Job Portal in Kerala</span>
           </div>
 
@@ -125,7 +104,8 @@ function LandingPage() {
               className="btn-primary"
               onClick={role === "recruiters" ? () => navigate("/addJobForm") : scrollToJobs}
             >
-              {role === "recruiters" ? "Post a Vacancy" : "Find Jobs Now"}
+              <span className="btn-primary__text">{role === "recruiters" ? "Post a Vacancy" : "Find Jobs Now"}</span>
+              <FaArrowRight size={13} className="btn-primary__arrow" />
             </button>
             <button className="btn-secondary" onClick={() => navigate("/companies")}>
               Explore Companies
@@ -139,11 +119,9 @@ function LandingPage() {
           </div>
         </header>
 
-    
-
-        {/* ================= HOW IT WORKS (GUEST/JOBSEEKER) ================= */}
+        {/* ================= HOW IT WORKS ================= */}
         {(role === "guest" || role === "job seekers") && (
-          <section className="how-it-works">
+          <section className="how-it-works" ref={jobSectionRef}>
             <h2 className="section-title">Start Your IT Career in Kerala in 3 Simple Steps</h2>
             <div className="steps-container">
               {[

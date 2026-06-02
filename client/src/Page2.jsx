@@ -1,39 +1,41 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   FaDatabase, FaChartLine, FaUserTie, FaJava,
   FaChevronRight, FaCode, FaRobot, FaHeadset,
-  FaPenNib, FaBriefcase, FaChevronLeft
+  FaPenNib, FaBriefcase, FaChevronLeft, FaArrowRight
 } from "react-icons/fa";
 import "./css/Page2.css";
 
 const ROLE_STYLES = [
-  { keyword: "data",      icon: <FaDatabase />,  color: "#4e73df" },
-  { keyword: "analyst",   icon: <FaChartLine />, color: "#1cc88a" },
-  { keyword: "sales",     icon: <FaUserTie />,   color: "#f6c23e" },
-  { keyword: "java",      icon: <FaJava />,      color: "#e74a3b" },
-  { keyword: "frontend",  icon: <FaCode />,      color: "#36b9cc" },
-  { keyword: "ai",        icon: <FaRobot />,     color: "#6610f2" },
-  { keyword: "customer",  icon: <FaHeadset />,   color: "#fd7e14" },
-  { keyword: "design",    icon: <FaPenNib />,    color: "#e83e8c" },
-  { keyword: "backend",   icon: <FaCode />,      color: "#20c997" },
-  { keyword: "engineer",  icon: <FaRobot />,     color: "#6f42c1" },
+  { keyword: "data",      icon: <FaDatabase />,  color: "#2563eb" }, // Royal Blue
+  { keyword: "analyst",   icon: <FaChartLine />, color: "#0ea5e9" }, // Sky Blue
+  { keyword: "sales",     icon: <FaUserTie />,   color: "#f59e0b" }, 
+  { keyword: "java",      icon: <FaJava />,      color: "#ef4444" }, 
+  { keyword: "frontend",  icon: <FaCode />,      color: "#06b6d4" }, 
+  { keyword: "ai",        icon: <FaRobot />,     color: "#7c3aed" }, 
+  { keyword: "customer",  icon: <FaHeadset />,   color: "#f97316" }, 
+  { keyword: "design",    icon: <FaPenNib />,    color: "#ec4899" }, 
+  { keyword: "backend",   icon: <FaCode />,      color: "#10b981" }, 
+  { keyword: "engineer",  icon: <FaRobot />,     color: "#6366f1" }, 
 ];
 
-const DEFAULT_STYLE = { icon: <FaBriefcase />, color: "#6c757d" };
+// Fallback style matches the Logo's Primary Deep Blue
+const DEFAULT_STYLE = { icon: <FaBriefcase />, color: "#0d107a" };
 
 const getStyle = (title = "") => {
   const lower = title.toLowerCase();
   return ROLE_STYLES.find((s) => lower.includes(s.keyword)) || DEFAULT_STYLE;
 };
 
-const PAGINATION_THRESHOLD = 12; // show pagination only beyond this many pages
+const PAGINATION_THRESHOLD = 12;
 
 export default function Page2() {
   const [allRoles, setAllRoles]       = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [animKey, setAnimKey]         = useState(0);
   const itemsPerPage = 4;
   const navigate = useNavigate();
 
@@ -66,6 +68,11 @@ export default function Page2() {
 
   const showPagination = totalPages > PAGINATION_THRESHOLD;
 
+  const changePage = (page) => {
+    setCurrentPage(page);
+    setAnimKey(k => k + 1);
+  };
+
   const scrollToJobs = () => {
     const el = document.getElementById("jobs-section");
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -75,11 +82,9 @@ export default function Page2() {
     navigate(`/jobs?title=${encodeURIComponent(title)}`);
   };
 
-  /* ── build visible page numbers with ellipsis ── */
   const getPageNumbers = () => {
     const pages = [];
-    const delta = 2; // pages around current
-
+    const delta = 2;
     for (let i = 0; i < totalPages; i++) {
       if (
         i === 0 ||
@@ -87,9 +92,7 @@ export default function Page2() {
         (i >= currentPage - delta && i <= currentPage + delta)
       ) {
         pages.push(i);
-      } else if (
-        pages[pages.length - 1] !== "..."
-      ) {
+      } else if (pages[pages.length - 1] !== "...") {
         pages.push("...");
       }
     }
@@ -97,146 +100,151 @@ export default function Page2() {
   };
 
   return (
-    <section className="job-opportunities-section">
-      <Container>
-        <Row className="align-items-center gy-5">
+    <section className="p2-section">
+      {/* Brand logo-inspired soft backdrop orbs */}
+      <div className="p2-blob p2-blob--1" aria-hidden="true" />
+      <div className="p2-blob p2-blob--2" aria-hidden="true" />
 
-          {/* LEFT */}
-          <Col lg={6} md={12} className="text-center text-lg-start">
-            <h2 className="display-5 fw-bold mb-4 main-heading">
-              Explore Job Opportunities in <br className="d-none d-md-block" />
-              <span className="text-primary-gradient"> Popular Roles</span>
-            </h2>
-            <p className="text-muted lead mb-4 description-text fs-6 fs-lg-5">
-              {allRoles.length > 0
-                ? `Showing ${allRoles.length} unique roles. Page ${currentPage + 1} of ${totalPages || 1}.`
-                : "Loading available roles..."}
-            </p>
-            <div className="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
-              <Button
-                variant="primary"
-                className="btn-custom rounded-pill shadow-lg"
-                onClick={scrollToJobs}
-              >
-                Explore All Jobs <FaChevronRight className="ms-2" size={14} />
-              </Button>
+      <Container className="p2-container">
+        <Row className="align-items-center g-4 gy-5">
+
+          {/* ── LEFT COLUMN ── */}
+          <Col lg={5} md={12} className="p2-left">
+            <div className="p2-eyebrow">
+              <span className="p2-eyebrow__dot" />
+              Opportunities
             </div>
+
+            <h2 className="p2-heading">
+              Explore Jobs in<br />
+              <span className="p2-heading__accent">Popular Roles</span>
+            </h2>
+
+            <p className="p2-subtext">
+              {allRoles.length > 0
+                ? `${allRoles.length} unique roles found · Page ${currentPage + 1} of ${totalPages || 1}`
+                : "Loading available roles…"}
+            </p>
+
+            <button className="p2-cta" onClick={scrollToJobs}>
+              <span>Explore All Jobs</span>
+              <span className="p2-cta__arrow">
+                <FaArrowRight size={13} />
+              </span>
+            </button>
+
+            {/* Stats strip */}
+            {allRoles.length > 0 && (
+              <div className="p2-stats">
+                <div className="p2-stat">
+                  <span className="p2-stat__num">{allRoles.length}</span>
+                  <span className="p2-stat__label">Roles</span>
+                </div>
+                <div className="p2-stat__divider" />
+                <div className="p2-stat">
+                  <span className="p2-stat__num">{allRoles.reduce((s, r) => s + parseInt(r.count), 0)}</span>
+                  <span className="p2-stat__label">Openings</span>
+                </div>
+                <div className="p2-stat__divider" />
+                <div className="p2-stat">
+                  <span className="p2-stat__num">Live</span>
+                  <span className="p2-stat__label">Updated</span>
+                </div>
+              </div>
+            )}
           </Col>
 
-          {/* RIGHT */}
-          <Col lg={6} md={12}>
+          {/* ── RIGHT COLUMN ── */}
+          <Col lg={7} md={12} className="p2-right">
             {allRoles.length === 0 ? (
-              <p className="text-muted text-center">Loading roles...</p>
+              <div className="p2-loading">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="p2-skeleton" style={{ animationDelay: `${i * 0.1}s` }} />
+                ))}
+              </div>
             ) : (
               <>
-                <div className="cards-wrapper" key={currentPage}>
+                <div className="p2-cards" key={animKey}>
                   {currentRoles.map((role, index) => (
-                    <Card
+                    <button
                       key={index}
-                      className="role-card border-0 shadow-sm animate-in"
-                      style={{ cursor: "pointer" }}
+                      className="p2-card"
+                      style={{ "--role-color": role.color, animationDelay: `${index * 0.06}s` }}
                       onClick={() => handleRoleClick(role.title)}
+                      aria-label={`${role.title} – ${role.count}`}
                     >
-                      <Card.Body className="d-flex align-items-center justify-content-between p-3">
-                        <div className="d-flex align-items-center">
-                          <div
-                            className="icon-box"
-                            style={{ backgroundColor: `${role.color}15`, color: role.color }}
-                          >
-                            {role.icon}
-                          </div>
-                          <div className="ms-3 text-start">
-                            <h6 className="mb-0 fw-bold">{role.title}</h6>
-                            <small className="text-muted d-md-none">{role.count}</small>
-                          </div>
-                        </div>
-                        <div className="d-none d-md-flex align-items-center">
-                          <span className="job-badge">{role.count}</span>
-                          <FaChevronRight className="ms-3 text-light-gray" />
-                        </div>
-                      </Card.Body>
-                    </Card>
+                      <div className="p2-card__icon" style={{ "--role-color": role.color }}>
+                        {role.icon}
+                      </div>
+                      <div className="p2-card__body">
+                        <span className="p2-card__title">{role.title}</span>
+                        <span className="p2-card__count">{role.count}</span>
+                      </div>
+                      <div className="p2-card__arrow">
+                        <FaChevronRight size={12} />
+                      </div>
+                      {/* Brand-colored dynamic slide accent */}
+                      <span className="p2-card__bar" style={{ background: role.color }} />
+                    </button>
                   ))}
                 </div>
 
-                {/* ── dot pagination: always show when 1 < pages ≤ 12 ── */}
+                {/* Dot pagination */}
                 {!showPagination && totalPages > 1 && (
-                  <div className="custom-pagination mt-4">
+                  <div className="p2-dots">
                     {[...Array(totalPages)].map((_, idx) => (
-                      <span
+                      <button
                         key={idx}
-                        className={`dot ${currentPage === idx ? "active" : ""}`}
-                        onClick={() => setCurrentPage(idx)}
+                        className={`p2-dot${currentPage === idx ? " p2-dot--active" : ""}`}
+                        onClick={() => changePage(idx)}
+                        aria-label={`Page ${idx + 1}`}
                       />
                     ))}
                   </div>
                 )}
 
-                {/* ── numbered pagination: only when pages > 12 ── */}
+                {/* Numbered pagination */}
                 {showPagination && (
-                  <div className="d-flex align-items-center justify-content-center gap-1 mt-4 flex-wrap">
-
-                    {/* Prev button */}
+                  <div className="p2-pager">
                     <button
-                      onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+                      className="p2-pager__btn p2-pager__btn--nav"
+                      onClick={() => changePage(Math.max(0, currentPage - 1))}
                       disabled={currentPage === 0}
-                      style={pgBtnStyle(false, currentPage === 0)}
+                      aria-label="Previous"
                     >
-                      <FaChevronLeft size={12} />
+                      <FaChevronLeft size={11} />
                     </button>
 
-                    {/* Page numbers with ellipsis */}
                     {getPageNumbers().map((page, idx) =>
                       page === "..." ? (
-                        <span key={`ellipsis-${idx}`} style={{ padding: "0 4px", color: "#9ca3af", fontSize: "0.9rem" }}>
-                          …
-                        </span>
+                        <span key={`e-${idx}`} className="p2-pager__ellipsis">…</span>
                       ) : (
                         <button
                           key={page}
-                          onClick={() => setCurrentPage(page)}
-                          style={pgBtnStyle(currentPage === page, false)}
+                          className={`p2-pager__btn${currentPage === page ? " p2-pager__btn--active" : ""}`}
+                          onClick={() => changePage(page)}
                         >
                           {page + 1}
                         </button>
                       )
                     )}
 
-                    {/* Next button */}
                     <button
-                      onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+                      className="p2-pager__btn p2-pager__btn--nav"
+                      onClick={() => changePage(Math.min(totalPages - 1, currentPage + 1))}
                       disabled={currentPage === totalPages - 1}
-                      style={pgBtnStyle(false, currentPage === totalPages - 1)}
+                      aria-label="Next"
                     >
-                      <FaChevronRight size={12} />
+                      <FaChevronRight size={11} />
                     </button>
-
                   </div>
                 )}
               </>
             )}
           </Col>
+
         </Row>
       </Container>
     </section>
   );
 }
-
-/* ── pagination button style helper ── */
-const pgBtnStyle = (isActive, isDisabled) => ({
-  width: "34px",
-  height: "34px",
-  borderRadius: "8px",
-  border: isActive ? "none" : "1.5px solid #e5e7eb",
-  background: isActive ? "linear-gradient(135deg, #667eea, #764ba2)" : "white",
-  color: isActive ? "white" : isDisabled ? "#d1d5db" : "#374151",
-  fontWeight: isActive ? "700" : "500",
-  fontSize: "0.85rem",
-  cursor: isDisabled ? "not-allowed" : "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  transition: "all 0.2s",
-  boxShadow: isActive ? "0 4px 12px rgba(118,75,162,0.35)" : "none",
-  opacity: isDisabled ? 0.4 : 1,
-});

@@ -1,59 +1,400 @@
-.category-card {
-  transition: 0.3s;
-  cursor: pointer;
+/* ═══════════════════════════════════════════
+   Page1.css — Job Search Landing Section
+   Design: Pure White Minimalist Canvas Update
+   ═══════════════════════════════════════════ */
+
+/* ── Root & Background ── */
+.p1-root {
+  min-height: 60vh;
+  position: relative;
+  overflow: hidden;
+  /* CHANGED: Forced crisp, solid white background canvas */
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  padding: 60px 0 40px;
+  font-family: 'Outfit', 'DM Sans', 'Segoe UI', sans-serif;
+  /* Force stacking context so orbs don't bleed out */
+  isolation: isolate;
 }
 
-.category-card:hover {
-  background: #eceaff;
-  transform: translateY(-5px);
+/* Background decorative orbs — Calibrated with soft opacities for solid white space */
+.p1-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
 }
-/* Companies Marquee Animation */
-.companies-marquee {
-    max-width: 100%;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    padding: 20px 0;
-    margin: 20px 0;
-    /* backdrop-filter: blur(10px); */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+.p1-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
+  top: -100px;
+  left: -100px;
+  animation: p1-float 10s ease-in-out infinite;
+}
+.p1-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.05), transparent 70%);
+  bottom: -80px;
+  right: -80px;
+  animation: p1-float 13s ease-in-out infinite reverse;
+}
+.p1-orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.06), transparent 70%);
+  top: 50%;
+  left: 55%;
+  animation: p1-float 8s ease-in-out infinite 2s;
 }
 
-.marquee-track {
-    display: flex;
-    width: max-content;
-    animation: scroll-left 25s linear infinite;
-    gap: 30px;
-    padding: 0 50px;
+/* ── Container ── */
+.p1-container {
+  position: relative;
+  z-index: 1;
+  padding: 0 16px;
 }
 
-.company-card {
-    min-width: 160px;
-    flex-shrink: 0;
+/* ── Section Header ── */
+.p1-section-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 0 12px;
 }
 
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+.p1-pill {
+  display: inline-block;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  color: #6366f1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.p1-pill--green {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  color: #059669;
+  border-color: rgba(5, 150, 105, 0.2);
+}
+
+.p1-section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: #0f172a !important;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.p1-section-sub {
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  color: #64748b !important;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Marquee Wrapper ── */
+.p1-marquee-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+  width: 100%;
+}
+
+/* CHANGED: Recalibrated side fades to use clean #ffffff mask layers */
+.p1-fade-left,
+.p1-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 10;
+  pointer-events: none;
+}
+.p1-fade-left  { left: 0;  background: linear-gradient(to right, #ffffff, transparent); }
+.p1-fade-right { right: 0; background: linear-gradient(to left,  #ffffff, transparent); }
+
+/* ── Scrolling Track — KEY FIX: force flex in all situations ── */
+.p1-track {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: max-content;
+  gap: 16px;
 }
 
 /* Pause on hover */
-.companies-marquee:hover .marquee-track {
-    animation-play-state: paused;
+.p1-marquee-wrap:hover .p1-track {
+  animation-play-state: paused !important;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .marquee-track {
-        gap: 20px;
-        animation-duration: 20s;
-    }
-    
-    .company-card {
-        min-width: 130px;
-    }
+.p1-track-cats {
+  animation: p1-scroll 28s linear infinite;
+}
+.p1-track-companies {
+  animation: p1-scroll 22s linear infinite;
+}
+
+/* ── Category Card ── */
+.p1-cat-card {
+  flex-shrink: 0 !important;
+  min-width: 148px !important;
+  width: 148px !important;
+  padding: 24px 16px 20px;
+  border-radius: 20px;
+  background: var(--cat-bg);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+  /* CHANGED: Lightened shadow profile so cards bounce beautifully on white layouts */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  /* Critical: block any inherited layout weirdness */
+  display: block !important;
+  box-sizing: border-box;
+}
+
+.p1-cat-card:hover,
+.p1-cat-card--hovered {
+  background: var(--cat-grad) !important;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.04);
+}
+
+.p1-cat-icon {
+  font-size: 2rem;
+  color: var(--cat-color);
+  margin-bottom: 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: flex !important;
+  justify-content: center;
+}
+.p1-cat-card:hover .p1-cat-icon,
+.p1-cat-card--hovered .p1-cat-icon {
+  color: #ffffff !important;
+  transform: scale(1.15) rotate(-5deg);
+}
+
+.p1-cat-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b !important;
+  margin: 0 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+.p1-cat-card:hover .p1-cat-title,
+.p1-cat-card--hovered .p1-cat-title {
+  color: #ffffff !important;
+}
+
+.p1-cat-count {
+  font-size: 0.78rem;
+  color: #64748b !important;
+  margin: 0;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.p1-cat-card:hover .p1-cat-count,
+.p1-cat-card--hovered .p1-cat-count {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ── Company Card ── */
+.p1-company-card {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  min-width: 180px !important;
+  border-radius: 50px;
+  background: #ffffff !important;
+  /* CHANGED: Adjusted border to match high contrast flat white workspace */
+  border: 2px solid #f1f5f9;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  will-change: transform;
+  box-sizing: border-box;
+}
+
+.p1-company-card:hover,
+.p1-company-card--hovered {
+  background: var(--co-color) !important;
+  border-color: var(--co-color) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px) scale(1.04);
+}
+
+.p1-co-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.p1-co-initial {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.08);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--co-color);
+  flex-shrink: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.p1-company-card:hover .p1-co-initial,
+.p1-company-card--hovered .p1-co-initial {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff !important;
+}
+
+.p1-co-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b !important;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+  flex: 1;
+}
+.p1-company-card:hover .p1-co-name,
+.p1-company-card--hovered .p1-co-name {
+  color: #ffffff !important;
+}
+
+.p1-co-arrow {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.p1-company-card:hover .p1-co-arrow,
+.p1-company-card--hovered .p1-co-arrow {
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.8) !important;
+  transform: translateX(0);
+}
+
+/* ── Keyframe Animations ── */
+@keyframes p1-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+@keyframes p1-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-20px) scale(1.05); }
+}
+
+/* ── Override Bootstrap column display issues ── */
+.p1-marquee-col {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden;
+}
+
+/* ── Responsive Breakpoints ── */
+
+/* Tablet */
+@media (max-width: 991px) {
+  .p1-root {
+    padding: 40px 0 30px;
+  }
+  .p1-cat-card {
+    min-width: 135px !important;
+    width: 135px !important;
+    padding: 20px 12px 16px;
+  }
+  .p1-company-card {
+    min-width: 160px !important;
+    padding: 10px 16px;
+  }
+  .p1-fade-left,
+  .p1-fade-right {
+    width: 50px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .p1-root {
+    padding: 32px 0 24px;
+  }
+  .p1-section-title {
+    font-size: 1.6rem;
+  }
+  .p1-pill {
+    font-size: 0.72rem;
+  }
+  .p1-cat-card {
+    min-width: 120px !important;
+    width: 120px !important;
+    padding: 18px 10px 14px;
+    border-radius: 16px;
+  }
+  .p1-cat-icon {
+    font-size: 1.7rem;
+  }
+  .p1-cat-title {
+    font-size: 0.82rem;
+  }
+  .p1-cat-count {
+    font-size: 0.72rem;
+  }
+  .p1-company-card {
+    min-width: 140px !important;
+    padding: 9px 14px;
+    gap: 8px;
+  }
+  .p1-co-name {
+    font-size: 0.83rem;
+  }
+  .p1-track {
+    gap: 12px;
+  }
+  .p1-track-cats {
+    animation-duration: 20s;
+  }
+  .p1-track-companies {
+    animation-duration: 16s;
+  }
+  .p1-fade-left,
+  .p1-fade-right {
+    width: 35px;
+  }
+  .p1-marquee-wrap {
+    padding: 14px 0;
+  }
+}
+
+/* Extra small */
+@media (max-width: 360px) {
+  .p1-cat-card {
+    min-width: 108px !important;
+    width: 108px !important;
+  }
+  .p1-company-card {
+    min-width: 128px !important;
+  }
 }

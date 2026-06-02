@@ -1,147 +1,469 @@
-/* Clickable Dots */
-.dot {
-  cursor: pointer;
-  width: 10px;
-  height: 10px;
+/* ═══════════════════════════════════════════════
+   Page2.css  –  Job Opportunities Section
+   Aesthetic: Premium Corporate White & Royal Blue
+               Inspired by Kerala IT Park Logo
+═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+/* ── CSS Brand Theme Configuration ── */
+:root {
+  /* CHANGED: Swapped cream background with ultra clean white and pale grayish blue elements */
+  --p2-bg:           #ffffff;
+  --p2-surface:      #ffffff;
+  --p2-border:       #e2e8f0;
+  --p2-text-primary: #0f172a;
+  --p2-text-muted:   #475569;
+  
+  /* CHANGED: Replaced all browns/oranges with logo-matching Royal Deep Blue */
+  --p2-accent:       #0d107a;
+  --p2-accent-light: rgba(13, 16, 122, 0.06);
+  --p2-accent-glow:  rgba(13, 16, 122, 0.12);
+  
+  --p2-shadow-card:  0 4px 20px rgba(15, 23, 42, 0.04);
+  --p2-shadow-hover: 0 12px 30px rgba(13, 16, 122, 0.08);
+  --p2-radius-card:  16px;
+  --p2-radius-icon:  12px;
+  --p2-font-display: 'Plus Jakarta Sans', sans-serif;
+  --p2-font-body:    'Inter', sans-serif;
+  --p2-transition:   0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Section Wrapper ── */
+.p2-section {
+  position: relative;
+  background: var(--p2-bg);
+  padding: 80px 0 90px;
+  overflow: hidden;
+  font-family: var(--p2-font-body);
+}
+
+.p2-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Logo Inspired Backdrop Blobs ── */
+.p2-blob {
+  position: absolute;
   border-radius: 50%;
-  background: #cbd5e0;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 1;
+}
+/* Left and right ambient glow spaces matching logo color */
+.p2-blob--1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(13, 16, 122, 0.06) 0%, transparent 75%);
+  top: -100px;
+  right: -50px;
+}
+.p2-blob--2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, transparent 70%);
+  bottom: -100px;
+  left: -50px;
 }
 
-.dot:hover {
-  background: #a0aec0;
+/* ── Left Column Branding ── */
+.p2-left {
+  padding-right: 32px;
 }
 
-.dot.active {
-  width: 30px;
-  background: #5f4f3c;
-  border-radius: 10px;
+/* Section Tag Pill */
+.p2-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--p2-font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--p2-accent);
+  background: var(--p2-accent-light);
+  padding: 6px 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(13, 16, 122, 0.12);
+  margin-bottom: 20px;
+}
+.p2-eyebrow__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--p2-accent);
+  animation: p2-pulse 2s ease-in-out infinite;
+}
+@keyframes p2-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
 }
 
-/* Entrance Animation for Cards */
-.animate-in {
-  animation: slideFadeIn 0.5s ease forwards;
-  opacity: 0;
+/* Headings */
+.p2-heading {
+  font-family: var(--p2-font-display);
+  font-size: clamp(2rem, 3.8vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--p2-text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
 }
 
-@keyframes slideFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Headings */
+.p2-heading {
+  font-family: var(--p2-font-display);
+  font-size: clamp(2rem, 3.8vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--p2-text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.p2-heading__accent {
+  display: inline-block;
+  color: var(--p2-accent); /* Keeps the beautiful logo-blue color text without the line */
+}
+/* Subtext description */
+.p2-subtext {
+  font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+  color: var(--p2-text-muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
 }
 
-/* Staggered animation for list items */
-.role-card:nth-child(1) { animation-delay: 0.1s; }
-.role-card:nth-child(2) { animation-delay: 0.2s; }
-.role-card:nth-child(3) { animation-delay: 0.3s; }
-.role-card:nth-child(4) { animation-delay: 0.4s; }
-
-.card:hover {
-  background: #f8f7ff;
-}
-/* Container Styling */
-.job-opportunities-section {
-  background: radial-gradient(circle at top right, #f8f9ff 0%, #ffffff 100%);
-  border-radius: 40px;
-  padding: 80px 0;
-  margin-top: 50px;
-}
-
-.text-primary-gradient {
-  background: linear-gradient(45deg, #0d6efd, #667eea);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Button Styling */
-.btn-custom {
-  padding: 12px 35px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  background: linear-gradient(135deg, #7f00ff, #031546);
+/* Logo Blue Core Action Trigger */
+.p2-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--p2-font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--p2-accent);
   border: none;
-}
-
-.btn-custom:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
-}
-
-/* Card Styling */
-.role-card {
-  border-radius: 20px !important;
-  margin-bottom: 15px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50px;
+  padding: 14px 32px;
   cursor: pointer;
+  transition: var(--p2-transition);
+  box-shadow: 0 4px 14px rgba(13, 16, 122, 0.2);
+}
+.p2-cta:hover {
+  transform: translateY(-2px);
+  background: #171ca6; /* Lighter royal shade */
+  box-shadow: 0 8px 22px rgba(13, 16, 122, 0.3);
+}
+.p2-cta:active {
+  transform: translateY(0);
+}
+.p2-cta__arrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+.p2-cta:hover .p2-cta__arrow {
+  transform: translateX(4px);
 }
 
-.role-card:hover {
-  transform: translateX(10px);
-  background: #ffffff;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08) !important;
+/* Numerical Statistics Dashboard Box */
+.p2-stats {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  padding: 20px;
+  background: #f8fafc;
+  border: 1px solid var(--p2-border);
+  border-radius: 16px;
+  width: fit-content;
+}
+.p2-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+}
+.p2-stat__num {
+  font-family: var(--p2-font-display);
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  font-weight: 800;
+  color: var(--p2-accent);
+  line-height: 1;
+}
+.p2-stat__label {
+  font-size: 0.7rem;
+  color: var(--p2-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+  font-weight: 600;
+}
+.p2-stat__divider {
+  width: 1px;
+  height: 36px;
+  background: var(--p2-border);
+  flex-shrink: 0;
 }
 
-/* Icon Box */
-.icon-box {
-  width: 50px;
-  height: 50px;
+/* ── Right Column Cards Matrix ── */
+.p2-right {
+  padding-left: 16px;
+}
+
+.p2-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Individual Interactive Card Grid Item */
+.p2-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background: var(--p2-surface);
+  border: 1px solid var(--p2-border);
+  border-radius: var(--p2-radius-card);
+  padding: 16px 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--p2-transition);
+  box-shadow: var(--p2-shadow-card);
+  overflow: hidden;
+  animation: p2-slideUp 0.4s ease both;
+}
+@keyframes p2-slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.p2-card:hover {
+  border-color: rgba(13, 16, 122, 0.15);
+  box-shadow: var(--p2-shadow-hover);
+  transform: translateX(4px);
+  background: #f8fafc;
+}
+
+/* Left side indicator bar */
+.p2-card__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  opacity: 0;
+  transition: opacity var(--p2-transition);
+}
+.p2-card:hover .p2-card__bar {
+  opacity: 1;
+}
+
+/* Icon Elements Layout */
+.p2-card__icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--p2-radius-icon);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  font-size: 20px;
+  font-size: 18px;
+  color: var(--role-color);
+  background: color-mix(in srgb, var(--role-color) 8%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--role-color) 15%, transparent);
+  transition: transform var(--p2-transition);
+}
+.p2-card:hover .p2-card__icon {
+  transform: scale(1.05);
 }
 
-/* Badge Styling */
-.job-badge {
-  background: #f0f2ff;
-  color: #0d6efd;
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 13px;
-  font-weight: 600;
+.p2-card__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.p2-card__title {
+  font-family: var(--p2-font-display);
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  font-weight: 700;
+  color: var(--p2-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.p2-card__count {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--p2-text-muted);
 }
 
-/* Pagination Dots */
-.custom-pagination {
+.p2-card__arrow {
+  flex-shrink: 0;
+  color: #94a3b8;
+  transition: all var(--p2-transition);
+}
+.p2-card:hover .p2-card__arrow {
+  color: var(--p2-accent);
+  transform: translateX(2px);
+}
+
+/* ── Shimmering Loading Skeleton State ── */
+.p2-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.p2-skeleton {
+  height: 78px;
+  border-radius: var(--p2-radius-card);
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: p2-shimmer 1.4s infinite linear;
+}
+@keyframes p2-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Dot Navigation Pagination ── */
+.p2-dots {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 8px;
+  margin-top: 24px;
 }
-
-.dot {
+.p2-dot {
+  appearance: none;
+  border: none;
+  background: #cbd5e1;
+  border-radius: 50px;
   width: 8px;
   height: 8px;
-  border-radius: 50%;
-  background: #dee2e6;
-  transition: 0.3s;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.dot.active {
+.p2-dot:hover {
+  background: #94a3b8;
+}
+.p2-dot--active {
   width: 24px;
-  background: #0d6efd;
+  background: var(--p2-accent);
+}
+
+/* ── Matrix Pager Pagination Controls ── */
+.p2-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.p2-pager__btn {
+  appearance: none;
+  border: 1px solid var(--p2-border);
+  background: var(--p2-surface);
+  color: var(--p2-text-primary);
+  font-family: var(--p2-font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: 36px;
+  height: 36px;
   border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--p2-transition);
+}
+.p2-pager__btn:hover:not(:disabled) {
+  border-color: var(--p2-accent);
+  color: var(--p2-accent);
+  background: var(--p2-accent-light);
+}
+.p2-pager__btn--active {
+  background: var(--p2-accent) !important;
+  color: #ffffff !important;
+  border-color: var(--p2-accent) !important;
+  box-shadow: 0 4px 12px rgba(13, 16, 122, 0.2);
+}
+.p2-pager__btn--nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.p2-pager__ellipsis {
+  color: var(--p2-text-muted);
+  font-size: 0.9rem;
+  padding: 0 4px;
 }
 
-/* Responsive Adjustments */
+/* ── Cross Device Media Breakpoints ── */
 @media (max-width: 991px) {
-  .job-opportunities-section {
-    padding: 50px 20px;
-    border-radius: 0; /* Full width on mobile looks cleaner */
+  .p2-section {
+    padding: 60px 0;
   }
-  
-  .main-heading {
-    font-size: 28px;
+  .p2-left {
+    padding-right: 0;
+    text-align: center;
+  }
+  .p2-eyebrow, .p2-cta, .p2-stats {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .p2-right {
+    padding-left: 0;
   }
 }
 
-@media (max-width: 768px) {
-  .role-card:hover {
-    transform: translateY(-5px); /* Move up instead of side on mobile */
+@media (max-width: 767px) {
+  .p2-section {
+    padding: 48px 0;
+  }
+  .p2-heading {
+    font-size: clamp(1.6rem, 6.5vw, 2rem);
+  }
+  .p2-subtext {
+    font-size: 0.82rem;
+    margin-bottom: 24px;
+  }
+  .p2-cta {
+    font-size: 0.85rem;
+    padding: 12px 26px;
+  }
+  .p2-card {
+    padding: 14px 16px;
+  }
+  .p2-stats {
+    padding: 16px;
+    width: 100%;
+    justify-content: center;
+  }
+  .p2-stat {
+    padding: 0 16px;
+  }
+  .p2-blob {
+    display: none; /* Hide background highlights on smaller display setups */
+  }
+}
+
+@media (max-width: 400px) {
+  .p2-stats {
+    gap: 4px;
+  }
+  .p2-stat {
+    padding: 0 8px;
+  }
+  .p2-pager__btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
   }
 }

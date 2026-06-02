@@ -1,58 +1,422 @@
-.hero-section {
-  background: linear-gradient(135deg, #eaf2ff, #f8edff);
-  min-height: 85vh;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* ─── Reset & Base ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.ai-icon {
-  width: 200px;
-  height: 60px;
-  background: linear-gradient(135deg, #7f00ff, #00dbde);
-  color: white;
-  font-size: 28px;
+/* ─── Section Wrapper ─── */
+.p3-section {
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #04052b 0%, #090a3a 40%, #120b5e 70%, #1a0a6e 100%);
+  padding: 72px 0 80px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ─── Background Orbs ─── */
+.p3-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.25;
+}
+.p3-orb-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #5b21b6, transparent 70%);
+  top: -120px;
+  right: -120px;
+}
+.p3-orb-2 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #2563eb, transparent 70%);
+  bottom: -80px;
+  left: -80px;
+}
+
+/* ─── Container ─── */
+.p3-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* ─── Entry Layout States ─── */
+.p3-left,
+.p3-right {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ─── Badge ─── */
+.p3-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #c4b5fd;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: clamp(11px, 1.5vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 22px;
+}
+.p3-badge-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/* ─── Headings ─── */
+.p3-heading {
+  font-size: clamp(28px, 5vw, 54px);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+
+.p3-subheading {
+  font-size: clamp(14px, 2vw, 18px);
+  color: #a5b4fc;
+  font-weight: 400;
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+
+.p3-accent {
+  font-weight: 700;
+  color: #34d399;
+}
+/* ─── FIXED CTA BUTTON STYLING (WHITE BACKGROUND & BLACK TEXT) ─── */
+.p3-cta-btn, 
+.p3-cta-btn:hover, 
+.p3-cta-btn:focus, 
+.p3-cta-btn:active,
+.p3-cta-btn:disabled {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  
+  /* Hard set to solid pure white background with sharp black text */
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  
+  padding: 13px 30px !important;
+  font-size: clamp(13px, 1.8vw, 14px) !important;
+  font-weight: 700 !important;
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 100px !important;
+  letter-spacing: -0.01em !important;
+  
+  /* Lock layout states completely down to prevent hover changes */
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  transition: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Force arrow icon to match the black text color */
+.p3-btn-arrow {
+  font-size: 16px;
+  color: #000000 !important; 
+  display: inline-block;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* ─── Stats ─── */
+.p3-stats {
+  display: flex;
+  gap: clamp(20px, 4vw, 36px);
+  margin-top: 44px;
+  flex-wrap: wrap;
+}
+.p3-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+.p3-stat-num {
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.p3-stat-lbl {
+  font-size: clamp(11px, 1.4vw, 12.5px);
+  color: #7c85b0;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ─── Carousel Layout ─── */
+.p3-carousel {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  gap: 12px;
 }
 
-.slide-card {
-  width: 280px;
+/* ─── Card Stack ─── */
+.p3-stack {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
   height: 420px;
-  border-radius: 20px;
-  transition: 0.4s ease;
-  transform: scale(0.85);
-  opacity: 0.6;
+}
+
+/* ─── Individual Card ─── */
+.p3-card {
   position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  transform: scale(0.92) translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.p3-card-active {
+  opacity: 1 !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  transform: scale(1) translateY(0) !important;
 }
 
-.active-card {
-  transform: scale(1) translateY(-10px);
-  opacity: 1;
-  z-index: 10;
+.p3-card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
-.slider-btn {
+/* ─── Card Inner ─── */
+.p3-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.p3-card-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+.p3-card-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.p3-card-tag {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.p3-card-title {
+  font-size: clamp(17px, 3vw, 20px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.p3-card-desc {
+  font-size: clamp(12px, 1.6vw, 13.5px);
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── Card Action Buttons ─── */
+.p3-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.p3-btn-notes,
+.p3-btn-mcq {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 100px;
+  font-size: clamp(12px, 1.6vw, 13px);
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  letter-spacing: -0.01em;
+}
+.p3-btn-notes:hover,
+.p3-btn-mcq:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.p3-btn-notes {
+  background: transparent;
+  border: 1px solid;
+}
+
+.p3-btn-mcq {
   border: none;
-  background: white;
+  font-weight: 700;
+}
+
+/* ─── Nav Buttons ─── */
+.p3-nav-btn {
+  flex-shrink: 0;
   width: 40px;
   height: 40px;
-  font-size: 22px;
   border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
   z-index: 20;
-  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+.p3-nav-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.32);
+  transform: scale(1.08);
+}
+.p3-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
 }
 
-.left-btn {
-  position: absolute;
-  left: 0;
-  top: 45%;
+/* ─── Dots ─── */
+.p3-dots {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  margin-top: 22px;
+}
+.p3-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: width 0.3s ease, background 0.3s ease, border-radius 0.3s ease;
+  padding: 0;
+}
+.p3-dot-active {
+  width: 22px;
+  border-radius: 4px;
+}
+.p3-dot:hover:not(.p3-dot-active) {
+  background: rgba(255, 255, 255, 0.5);
 }
 
-.right-btn {
-  position: absolute;
-  right: 0;
-  top: 45%;
+/* ─── Responsive ─── */
+@media (max-width: 991px) {
+  .p3-section {
+    padding: 52px 0 60px;
+  }
+  .p3-left {
+    text-align: center !important;
+    margin-bottom: 36px;
+  }
+  .p3-stats {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .p3-section {
+    padding: 44px 0 52px;
+  }
+  .p3-stack {
+    max-width: 280px;
+    height: 390px;
+  }
+  .p3-card {
+    padding: 22px 20px 20px;
+  }
+  .p3-card-icon-wrap {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+  }
+  .p3-card-icon {
+    font-size: 24px;
+  }
+  .p3-nav-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+  .p3-heading {
+    font-size: 28px;
+  }
+  .p3-stats {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .p3-stack {
+    max-width: 240px;
+    height: 370px;
+  }
+  .p3-card {
+    padding: 18px 16px;
+  }
+  .p3-badge {
+    font-size: 11px;
+    padding: 7px 16px;
+  }
+  .p3-nav-btn {
+    width: 32px;
+    height: 32px;
+  }
 }

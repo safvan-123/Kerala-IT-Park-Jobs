@@ -2,24 +2,27 @@
 
 body {
   font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
 }
 
-/* Navbar Base Styling with Glassmorphism Edge */
+/* Navbar Base Styling - Pristine Pure White Design */
 .custom-navbar {
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  border-bottom: 1px solid #f1f5f9;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Brand Customization */
 .brand-logo {
   gap: 10px;
+  display: flex;
+  align-items: center;
 }
 .logo-img {
   height: 45px;
-  border-radius: 6px; /* Matches your dark blue square or rectangle badge well */
+  border-radius: 6px;
   transition: transform 0.3s ease;
 }
 .brand-logo:hover .logo-img {
@@ -28,7 +31,7 @@ body {
 .brand-text {
   font-weight: 700;
   letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #002244 0%, #0052cc 100%); /* Matches dark blue logo background contextually */
+  background: linear-gradient(135deg, #002244 0%, #0052cc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -108,7 +111,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #fff;
+  border: 2px solid #ffffff;
   box-shadow: 0 2px 5px rgba(255, 0, 85, 0.3);
 }
 
@@ -148,7 +151,7 @@ body {
 }
 
 .btn-modern-outline:hover {
-  background: rgba(0, 82, 204, 0.05) !important;
+  background: rgba(0, 82, 204, 0.04) !important;
   color: #0040a1 !important;
   transform: translateY(-1px);
 }
@@ -170,14 +173,14 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #0052cc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .user-avatar-placeholder {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: #f0f4f8;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,13 +189,14 @@ body {
   font-size: 16px;
 }
 
-/* Modern Material Dropdown Overrides */
+/* Modern Dropdown Overrides */
 .custom-dropdown-menu {
   margin-top: 15px !important;
   border-radius: 16px !important;
   min-width: 200px !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
-  border: 1px solid rgba(0,0,0,0.05) !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid #f1f5f9 !important;
   padding: 8px !important;
   overflow: hidden;
 }
@@ -208,14 +212,14 @@ body {
 }
 
 .custom-dropdown-menu .MuiMenuItem-root:hover {
-  background-color: rgba(0, 82, 204, 0.06) !important;
+  background-color: rgba(0, 82, 204, 0.05) !important;
   color: #0052cc !important;
-  padding-left: 20px !important; /* Subtle slide animation on hover */
+  padding-left: 20px !important;
 }
 
 .menu-divider {
   margin: 6px 0 !important;
-  border-color: rgba(0,0,0,0.06) !important;
+  border-color: #f1f5f9 !important;
 }
 
 .logout-item {
@@ -237,13 +241,18 @@ body {
 
 /* 📱 Responsive Adaptive CSS Mobile Overrides */
 @media (max-width: 991px) {
+  /* Added responsive adjustment to reduce title sizing so it comfortably fits on small displays */
+  .brand-text {
+    font-size: 16px;
+  }
+  
   .custom-collapse {
-    background: #ffffff;
+    background: #ffffff !important;
     padding: 1rem 1.5rem 1.5rem 1.5rem;
     border-radius: 16px;
     margin-top: 15px;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f5f9;
     animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
@@ -261,10 +270,21 @@ body {
   }
   
   .nav-link-custom::after {
-    display: none; /* Disables underline decoration for vertical stacking stack */
+    display: none;
   }
 
   .header-mobile-actions {
     gap: 5px;
+  }
+}
+
+/* Extra optimization scaling for extremely small mobile devices */
+@media (max-width: 360px) {
+  .brand-text {
+    font-size: 14px;
+    letter-spacing: 0px;
+  }
+  .logo-img {
+    height: 38px;
   }
 }

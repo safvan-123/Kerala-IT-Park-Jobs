@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import "./css/NavigationBar.css";
 import logo from "./assets/kerala_it_park_jobs_.jpeg";
@@ -122,7 +120,8 @@ const NavigationBar = () => {
         {/* BRAND LOGO */}
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center brand-logo">
           <img src={logo} alt="logo" className="logo-img" />
-          <span className="brand-text d-none d-sm-inline-block">
+          {/* FIXED: Changed from d-none d-sm-inline-block to d-inline-block so it is visible on mobile views */}
+          <span className="brand-text d-inline-block">
            Kerala IT Jobs
           </span>
         </Navbar.Brand>

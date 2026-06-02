@@ -1,182 +1,252 @@
+/* =============================================
+   Footer — Kerala IT Park Jobs
+   Dark gradient theme · Lime accent · Responsive
+   ============================================= */
+
 .footer {
-  background: linear-gradient(180deg, #0f172a, #020617);
-  color: #cbd5f5;
-  padding: 60px 0 25px;
-  font-family: "Inter", sans-serif;
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  color: #cbd5e1;
+  padding: 64px 0 28px;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── Brand block ── */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.brand-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #a3e635;
+  flex-shrink: 0;
 }
 
 .footer-title {
-  color: #fff;
-  font-size: 20px;
-  margin-bottom: 10px;
+  color: #f1f5f9;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin: 0;
 }
 
 .footer-text {
-  font-size: 14px;
-  margin-bottom: 15px;
+  font-size: 13.5px;
+  line-height: 1.7;
   color: #94a3b8;
+  margin-bottom: 20px;
+  max-width: 320px;
 }
 
-.subscribe-btn {
-  background-color: #a3e635;
-  color: #020617;
-  border: none;
-  font-weight: 600;
-  padding: 8px 18px;
-  border-radius: 20px;
+/* ── Social icons ── */
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-.subscribe-btn:hover {
-  background-color: #84cc16;
-}
-
-.footer-heading {
-  color: #e5e7eb;
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
   font-size: 15px;
-  margin-bottom: 12px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.social-link:hover {
+  background: #a3e635;
+  border-color: #a3e635;
+  color: #020617;
+  transform: translateY(-2px);
+}
+
+/* ── Contact info ── */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+  word-break: break-all;
+}
+
+.contact-icon {
+  color: #a3e635;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* ── Link columns ── */
+.footer-heading {
+  color: #e2e8f0;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 24px;
+  height: 2px;
+  background: #a3e635;
+  border-radius: 2px;
 }
 
 .footer-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .footer-list li {
-  font-size: 14px;
-  margin-bottom: 8px;
-  cursor: pointer;
+  font-size: 13.5px;
   color: #94a3b8;
+  padding: 5px 0;
+  cursor: pointer;
+  transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
 .footer-list li:hover {
   color: #a3e635;
+  padding-left: 5px;
 }
 
+/* ── Divider ── */
 .footer-divider {
-  border-color: #1e293b;
-  margin: 30px 0 15px;
+  border: none;
+  border-top: 1px solid #1e293b;
+  margin: 36px 0 18px;
 }
 
-.social-icons svg {
-  font-size: 18px;
-  margin-left: 15px;
-  cursor: pointer;
-  color: #cbd5f5;
+/* ── Copyright ── */
+.copyright {
+  font-size: 12.5px;
+  color: #64748b;
+  margin: 0;
+  letter-spacing: 0.2px;
 }
 
-.social-icons svg:hover {
-  color: #a3e635;
-}
-
-copyright {
-  font-size: 13px;
-  color: #94a3b8;
-}
+/* =============================================
+   Responsive — Tablet (≤ 768px)
+   ============================================= */
 @media (max-width: 768px) {
   .footer {
-    padding: 1.2rem 0 0.8rem;
+    padding: 40px 0 20px;
+    font-size: 14px;
   }
 
-  /* Stack all columns in a 2-column grid */
-  .footer .row {
-    --bs-gutter-y: 0.6rem;
-  }
-
-  /* Shrink the brand/social column */
   .footer-title {
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
+    font-size: 16px;
   }
 
   .footer-text {
-    font-size: 0.78rem;
-    margin-bottom: 0.4rem;
-    line-height: 1.4;
-  }
-
-  /* Social icons row — compact */
-  .social-icons {
-    gap: 6px !important;
-    margin-bottom: 0.4rem;
-  }
-
-  .social-link {
-    width: 30px;
-    height: 30px;
-    font-size: 0.75rem;
-  }
-
-  /* Contact info below icons */
-  .footer [style*="marginTop"] {
-    margin-top: 6px !important;
-  }
-
-  .footer [style*="marginTop"] p {
-    font-size: 0.78rem;
-    margin-bottom: 2px;
-    line-height: 1.4;
-  }
-
-  /* Section headings */
-  .footer-heading {
-    font-size: 0.82rem;
-    margin-bottom: 0.25rem;
-    margin-top: 0.3rem;
-  }
-
-  /* List items */
-  .footer-list {
-    padding-left: 0;
-    margin-bottom: 0;
-  }
-
-  .footer-list li {
-    font-size: 0.76rem;
-    padding: 1px 0;
-    line-height: 1.5;
-  }
-
-  /* Make the 4 link columns sit in a 2x2 grid */
-  .footer .col-md-2 {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-
-  /* Brand column full width */
-  .footer .col-md-4 {
-    flex: 0 0 100%;
+    font-size: 12.5px;
+    margin-bottom: 14px;
     max-width: 100%;
   }
 
-  .footer-divider {
-    margin: 0.6rem 0;
+  .social-link {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
   }
 
-  .copyright {
-    font-size: 0.75rem;
-    margin-bottom: 0.4rem;
-    padding: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer {
-    padding: 1rem 0 0.6rem;
-  }
-
-  .footer-title {
-    font-size: 0.88rem;
-  }
-
-  .footer-text {
-    font-size: 0.74rem;
-  }
-
-  .footer-list li {
-    font-size: 0.72rem;
+  .contact-info p {
+    font-size: 12px;
   }
 
   .footer-heading {
-    font-size: 0.78rem;
+    font-size: 12.5px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+
+  .footer-list li {
+    font-size: 12.5px;
+    padding: 4px 0;
+  }
+
+  .footer-divider {
+    margin: 24px 0 14px;
+  }
+
+  .copyright {
+    font-size: 11.5px;
+  }
+}
+
+/* =============================================
+   Responsive — Mobile (≤ 480px)
+   ============================================= */
+@media (max-width: 480px) {
+  .footer {
+    padding: 32px 0 16px;
+  }
+
+  .footer-title {
+    font-size: 15px;
+  }
+
+  .footer-text {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .social-link {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+    border-radius: 7px;
+  }
+
+  .contact-info p {
+    font-size: 11.5px;
+  }
+
+  .contact-icon {
+    font-size: 12px;
+  }
+
+  .footer-heading {
+    font-size: 11.5px;
+    margin-bottom: 8px;
+  }
+
+  .footer-list li {
+    font-size: 12px;
+  }
+
+  .copyright {
+    font-size: 11px;
   }
 }
