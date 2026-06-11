@@ -122,7 +122,7 @@ const NavigationBar = () => {
           <img src={logo} alt="logo" className="logo-img" />
           {/* FIXED: Changed from d-none d-sm-inline-block to d-inline-block so it is visible on mobile views */}
           <span className="brand-text d-inline-block">
-           Kerala IT Jobs
+           Kerala IT Park Jobs
           </span>
         </Navbar.Brand>
 
